@@ -1,4 +1,14 @@
-# Welcome to your organization's demo respository
-This code repository (or "repo") is designed to demonstrate the best GitHub has to offer with the least amount of noise.
+i. **Nama-nama anggota kelompok B12:**
+-Alizza Deli Satria
+-Daril Muhammad Rafan Syah
+-Ghina Nabila Gunawan
+-Hilmi Atha Putra
+-Thariq Ziyad Al Farizi
 
-The repo includes an `index.html` file (so it can render a web page), two GitHub Actions workflows, and a CSS stylesheet dependency.
+ii. **Cerita aplikasi yang diajukan serta manfaatnya**
+
+iii. **Daftar modul yang akan diimplementasikan**
+
+iv. **Sumber dataset katalog buku**
+
+v. **Role atau peran pengguna beserta deskripsinya**
