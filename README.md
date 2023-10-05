@@ -43,9 +43,11 @@ Media untuk berdonasi buku yang disalurkan ke sekolah dsb.
 Filter informasi data user yang cuman bisa dilihat oleh user yang sudah login, termasuk profile, data diri, dan history buku. 
 
 iv. **Sumber dataset katalog buku**
+
 https://developers.google.com/books/ (Google Books API)
 
 v. **Role atau peran pengguna beserta deskripsinya**
+
 ROLE USER
 
 User Pembaca:
