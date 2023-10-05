@@ -1,4 +1,8 @@
-i. **Nama-nama anggota kelompok `B12` :**
+# Bookify-Web
+
+### Link to our website :  ...
+
+# **Anggota Kelompok `B12` :**
 
 - `Alizza Deli Satria`
 
@@ -10,10 +14,12 @@ i. **Nama-nama anggota kelompok `B12` :**
 
 - `Thariq Ziyad Al Farizi`
 
-ii. **Cerita aplikasi yang diajukan serta manfaatnya**
+# **Cerita aplikasi yang diajukan serta manfaatnya**
 
-iii. **Daftar modul yang akan diimplementasikan**
+# **Daftar modul yang akan diimplementasikan**
 
-iv. **Sumber dataset katalog buku**
+# **Sumber dataset katalog buku**
 
-v. **Role atau peran pengguna beserta deskripsinya**
+# **Role atau peran pengguna beserta deskripsinya**
+
+# **Pages**
