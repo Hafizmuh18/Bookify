@@ -41,7 +41,7 @@ Pembuatan komunitas sesuai dgn minat bacaan, dengan fitur diskusi
 Media untuk berdonasi buku yang disalurkan ke sekolah dsb.
 
 5. *Modul User Management:*
-Filter informasi data user yang cuman bisa dilihat oleh user yang sudah login, termasuk profile, data diri, dan history buku.
+Filter informasi data buku yg "akan dibaca" oleh user.
 
 # **Sumber dataset katalog buku**
 https://developers.google.com/books/ (Google Books API)
