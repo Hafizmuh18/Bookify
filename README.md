@@ -40,7 +40,7 @@ Pembuatan komunitas sesuai dgn minat bacaan, dengan fitur diskusi
 4. *Modul Books Donation:*
 Media untuk berdonasi buku yang disalurkan ke sekolah dsb.
 
-5. *Modul User Management:*
+5. *Modul Bookmark:*
 Filter informasi data buku yg "akan dibaca" oleh user.
 
 # **Sumber dataset katalog buku**
