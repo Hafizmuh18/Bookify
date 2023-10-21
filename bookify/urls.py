@@ -15,8 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+# from bookreview.views import homepage  # Pastikan Anda mengimpor 'homepage' dengan benar
 
 urlpatterns = [
+    # path('', homepage, name='homepage'),  # Tambahkan path untuk halaman beranda
+    path('book/', include('bookreview.urls')),
     path('admin/', admin.site.urls),
+    path('', include('homepage.urls')),
 ]
