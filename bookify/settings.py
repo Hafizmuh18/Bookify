@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     'homepage',
     'bookreview',
+    'booklibrary',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -123,3 +124,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Setting up Custom User Roles
+AUTH_USER_MODEL = 'homepage.CustomUser'
+
+# Setting up Custom Backends
+# AUTHENTICATION_BACKENDS = [
+#     'homepage.backends.EmailBackend',  # Your custom backend
+#     'django.contrib.auth.backends.ModelBackend',  # Default Django backend
+# ]

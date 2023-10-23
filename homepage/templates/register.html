@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Register</title>
+{% endblock meta %}
+
+{% block content %}  
+
+<div class = "login">
+    
+    <h1>Register</h1>  
+
+    {{ form.email.errors }}
+    
+        <form method="POST" >  
+            {% csrf_token %}  
+            <table>  
+                {{ form.as_table }} 
+                <tr>  
+                    <td></td>
+                    <td><input type="submit" name="submit" value="Daftar"/></td>  
+                </tr>  
+            </table>  
+        </form>
+
+    {% if messages %}  
+        <ul>   
+            {% for message in messages %}  
+                <li>{{ message }}</li>  
+                {% endfor %}  
+        </ul>   
+    {% endif %}
+
+</div>  
+
+<!--Handle Checkbox with JS-->
+<!-- <script>
+    const checkbox = document.getElementById("moderatorCheckbox");
+    const emailInputRow = document.getElementById("emailInputRow");
+
+    checkbox.addEventListener("change", function() {
+        if (checkbox.checked) {
+            emailInputRow.style.display = "table-row"; // Show the email input
+            emailInputRow.setAttribute('required', true); // set the required attribute
+        } else {
+            emailInputRow.style.display = "none"; // Hide the email input
+            emailInputRow.removeAttribute('required'); // remove the required attribute
+        }
+    });
+</script> -->
+{% endblock content %}
