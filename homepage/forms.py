@@ -1,5 +1,7 @@
 from django.forms import ModelForm
-from homepage.models import Book
+from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from homepage.models import Book, CustomUser
 
 class BookForm(ModelForm):
     class Meta:
@@ -13,3 +15,13 @@ class BookForm(ModelForm):
             'cols' : '20',
             'rows' : '5',
         })
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm):
+        model = CustomUser
+        fields = ('username', 'password1', 'password2','role')
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'password','role')

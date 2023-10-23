@@ -1,13 +1,20 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from django.core import serializers
+from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
-# Create your views here.
-from .forms import BookForm
-from .models import Book
-import json
 from django.views.decorators.csrf import csrf_exempt
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
+from django.contrib import messages 
+
+from .forms import BookForm, CustomUserCreationForm
+from .models import Book
+
 import datetime
+import json
 
 
 def show_homepage(request):
@@ -24,3 +31,32 @@ def show_json(request):
     data = Book.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+def register(request):
+    form = CustomUserCreationForm()
+
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account has been successfully created!')
+            return redirect('homepage:show_homepage')
+    context = {'form':form}
+    return render(request, 'register.html', context)
+
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('homepage:show_homepage')
+        else:
+            messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+    context = {}
+    return render(request, 'login.html', context)
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('homepage:login')
