@@ -125,11 +125,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Setting up Custom User Roles
+# Setting up Custom User Roles (ALWAYS USE )
 AUTH_USER_MODEL = 'homepage.CustomUser'
-
-# Setting up Custom Backends
-# AUTHENTICATION_BACKENDS = [
-#     'homepage.backends.EmailBackend',  # Your custom backend
-#     'django.contrib.auth.backends.ModelBackend',  # Default Django backend
-# ]

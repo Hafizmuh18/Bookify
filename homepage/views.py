@@ -31,8 +31,9 @@ def show_json(request):
     data = Book.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+#Customed Register Function (So it can fill up 'Role' field)
 def register(request):
-    form = CustomUserCreationForm()
+    form = CustomUserCreationForm() #CustomUserCreationForm() imported from forms.py
 
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
@@ -43,6 +44,7 @@ def register(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
+#Default Login Function
 def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -56,7 +58,7 @@ def login_user(request):
     context = {}
     return render(request, 'login.html', context)
 
-
+#Default Logout Function
 def logout_user(request):
     logout(request)
     return redirect('homepage:login')

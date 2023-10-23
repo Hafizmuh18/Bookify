@@ -3,7 +3,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
-# Create your models here.
+#-------------------------------------IMPORTANT!---------------------------------------------------
+# ALWAYS USE 'settings.AUTH_USER_MODEL' INSTEAD OF THE USUAL 'User' WHEN CONNECTING MODELS TO USER!
+# i.e. user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+#                    OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+#                    ManyToManyField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+
+# NOT THIS -> models.ForeignKey(User,on_delete=models.CASCADE)
+
+# BECAUSE WE ARE USING CUSTOM USER
+#--------------------------------------------------------------------------------------------------
+
+#CustomUser model instead of the default User model for our UserCreation mechanism (So we can add 'Role' field)
 class CustomUser(AbstractUser):
     ROLES = (
         ('member', 'Member'),

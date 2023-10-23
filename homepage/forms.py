@@ -16,11 +16,13 @@ class BookForm(ModelForm):
             'rows' : '5',
         })
 
+#CustomUserCreationForm instead of the default UserCreationForm, so we can add roles to user
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = CustomUser
         fields = ('username', 'password1', 'password2','role')
 
+#Same as above, but only to modify
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
