@@ -1,124 +1,126 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block meta %}
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
+{% load static %}
+
+{% block meta %}
+
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'homepage_static/css/styles.css' %}"/>
 {% endblock meta %}
 
 
 {% block content %}
-  <link rel="stylesheet" href="{% static 'css/homepage.css' %}" >
 
-  <style>
-    body {
-        background-color: #fde3a7; /* Warna latar belakang */
-        font-family: Arial, sans-serif;
-    }
+<style>
+  body {
+    background-color: #fde3a7; /* Warna latar belakang */
+    font-family: Arial, sans-serif;
+}
 
-    .bg-gray-800 {
-        background-color: #94cbcb; /* Warna latar belakang navbar */
-    }
+.bg-gray-800 {
+    background-color: #94cbcb; /* Warna latar belakang navbar */
+}
 
-    .text-blue-500 {
-        color: #ffe91e; /* Warna teks judul */
-    }
+.text-blue-500 {
+    color: #ffe91e; /* Warna teks judul */
+}
 
-    .text-gray-300 {
-        color: #000000; /* Warna teks navbar */
-    }
+.text-gray-300 {
+    color: #000000; /* Warna teks navbar */
+}
 
-    .text-gray-900 {
-        color: #000000; /* Warna teks judul card */
-    }
+.text-gray-900 {
+    color: #000000; /* Warna teks judul card */
+}
 
-    .text-gray-700 {
-        color: #000000; /* Warna teks penjelasan */
-    }
+.text-gray-700 {
+    color: #000000; /* Warna teks penjelasan */
+}
 
-    .bg-blue-100 {
-        background-color: #add8e6; /* Warna latar belakang konten */
-    }
+.bg-blue-100 {
+    background-color: #add8e6; /* Warna latar belakang konten */
+}
 
-    .bg-white {
-        background-color: #fff; /* Warna latar belakang card */
-    }
+.bg-white {
+    background-color: #fff; /* Warna latar belakang card */
+}
 
-    .rounded-lg {
-        border-radius: 8px;
-    }
+.rounded-lg {
+    border-radius: 8px;
+}
 
-    .shadow-md {
-        box-shadow: 0px 0px 10px rgba(255, 205, 129, 0.767);
-    }
+.shadow-md {
+    box-shadow: 0px 0px 10px rgba(255, 205, 129, 0.767);
+}
 
-    .p-5 {
-        padding: 1.25rem;
-    }
+.p-5 {
+    padding: 1.25rem;
+}
 
-    .font-normal {
-        font-weight: normal;
-    }
+.font-normal {
+    font-weight: normal;
+}
 
-    .rounded-md {
-        border-radius: 4px;
-    }
+.rounded-md {
+    border-radius: 4px;
+}
 
-    .hover:-translate-y-2 {
-        transition: transform 0.3s;
-    }
+.hover:-translate-y-2 {
+    transition: transform 0.3s;
+}
 
-    .shadow-lg {
-        box-shadow: pink;
-    }
+.shadow-lg {
+    box-shadow: pink;
+}
 
-    .shadow-2xl {
-        box-shadow: pink;
-    }
+.shadow-2xl {
+    box-shadow: pink;
+}
 
-    .overflow-hidden {
-        overflow: hidden;
-    }
+.overflow-hidden {
+    overflow: hidden;
+}
 
-    .hover:bg-blue-700:hover {
-        background-color: #98cbff; /* Warna latar belakang hover */
-    }
+.hover:bg-blue-700:hover {
+    background-color: #98cbff; /* Warna latar belakang hover */
+}
 
-    .text-white {
-        color: #fff;
-    }
+.text-white {
+    color: #fff;
+}
 
-    .bg-blue-500 {
-        background-color: #77bbff; /* Warna latar belakang tombol */
-    }
+.bg-blue-500 {
+    background-color: #77bbff; /* Warna latar belakang tombol */
+}
 
-    .hover:bg-blue-700:hover {
-        background-color: #8dbbe9; /* Warna latar belakang tombol hover */
-    }
+.hover:bg-blue-700:hover {
+    background-color: #8dbbe9; /* Warna latar belakang tombol hover */
+}
 
-    .focus:ring-4 {
-        outline: none;
-        border: 2px solid transparent;
-        border-radius: 12px;
-        box-shadow: 0 0 0 3px #63b3ed; /* Warna cincin fokus */
-    }
+.focus:ring-4 {
+    outline: none;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    box-shadow: 0 0 0 3px #63b3ed; /* Warna cincin fokus */
+}
 
-    .focus:outline-none {
-        outline: none;
-    }
+.focus:outline-none {
+    outline: none;
+}
 
-    .text-blue-700 {
-        color: #f1b500; /* Warna teks tombol hover */
-    }
+.text-blue-700 {
+    color: #f1b500; /* Warna teks tombol hover */
+}
 
-    .bg-slate-800 {
-        background-color: #708090; /* Warna latar belakang bagian "About Us" */
-    }
+.bg-slate-800 {
+    background-color: #708090; /* Warna latar belakang bagian "About Us" */
+}
 
-    .text-2xl {
-        font-size: 1.5rem;
-    }
-  </style>  
-  
+.text-2xl {
+    font-size: 1.5rem;
+}
+</style>
+
   <!-- nav bar -->
   <nav class="bg-gray-800">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
