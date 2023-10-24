@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'bookcommunity',
     'bookdonation',
     'bookmark',
+    'books',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

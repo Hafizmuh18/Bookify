@@ -20,7 +20,12 @@ from django.urls import path, include
 
 urlpatterns = [
     # path('', homepage, name='homepage'),  # Tambahkan path untuk halaman beranda
-    path('book/', include('bookreview.urls')),
     path('admin/', admin.site.urls),
     path('', include('homepage.urls')),
+    path('booklibrary/', include('booklibrary.urls')),
+    path('bookreview/', include('bookreview.urls')), #Path bookreview diubah dari 'book/' menjadi 'bookreview/'
+    path('bookcommunity/', include('bookcommunity.urls')),
+    path('bookdonation/', include('bookdonation.urls')),
+    path('bookmark/', include('bookmark.urls')),
+    path('api/books/', include('books.urls'))
 ]
