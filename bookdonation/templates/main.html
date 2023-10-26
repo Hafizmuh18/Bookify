@@ -70,7 +70,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    
                     <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
                 </div>
             </div>
@@ -203,66 +202,59 @@
 
 <script>
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const closeButton = document.querySelector('.btn-close'); // Tombol "Close" di modal Donasikan
-        const closeButton2 = document.querySelector('.btn-secondary'); // Tombol "Tutup"
-        const backButton = document.querySelector('.btn-back'); // Tombol "Kembali"
-        const inputFields = document.querySelectorAll('input[type="text"], input[type="number"], textarea');
+
+    let donationCount = 0; // Variable to store the book count
     
-        function resetInputFields() {
-            inputFields.forEach(function (input) {
-                input.value = ''; // Kosongkan kolom input
-            });
-        }
+    function updateDonationCount() {
+        const totalBukuInput = document.getElementById("total_buku_donasi");
+        const donationCountParagraph = document.getElementById("donation-count");
+
+        donationCount = totalBukuInput.value; // Update the variable
+        donationCountParagraph.textContent = `Anda akan mendonasikan ${donationCount} buku.`;
+    }
+
+    function showBookAlert() {
+        const bookTitle = document.getElementById('selected-book-title').value;
     
-        if (closeButton) {
-            closeButton.addEventListener('click', resetInputFields);
-        }
+        const donationCount = document.getElementById("total_buku_donasi").value;
+        const resi = "-"; // Set default value for resi
     
-        if (closeButton2) {
-            closeButton2.addEventListener('click', resetInputFields);
-        }
+        alert(`Anda mendonasikan buku ${bookTitle} sebanyak ${donationCount} buku.`);
+        
+        // Create a FormData object and add the values to it
+        const formData = new FormData();
+        formData.append("judul_buku", bookTitle);
+        formData.append("total_buku", donationCount);
+        formData.append("resi", resi);
     
-        if (backButton) {
-            backButton.addEventListener('click', resetInputFields);
-        }
-    });
+        // Send the data to the server via AJAX
+        fetch("{% url 'bookdonation:add_product_ajax' %}", {
+            method: "POST",
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                // Handle success
+                console.log('Product created successfully');
+                document.getElementById("total_buku_donasi").value = ""; // Clear the input field
+                donationCount = 0; // Reset the variable
+                location.reload(); // Refresh the page
+            } else {
+                // Handle error
+                console.error('Failed to create product');
+                location.reload();
+            }
+        });
+    }
     
+
+   
+
+    function prepareDonasikan(bookTitle) {
+        document.getElementById('selected-book-title').value = bookTitle;
+    }
 
     
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const backButton = document.querySelector('.btn-back'); // Sesuaikan dengan kelas tombol kembali Anda
-        const inputFields = document.querySelectorAll('input[type="text"], input[type="number"], textarea');
-
-        if (backButton) {
-            backButton.addEventListener('click', function () {
-                inputFields.forEach(function (input) {
-                    input.value = ''; // Kosongkan kolom input
-                });
-            });
-        }
-    });
-
-    
-        let donationCount = 0; // Variable to store the book count
-
-        function showBookAlert() {
-            const totalBukuInput = document.getElementById("total_buku_donasi");
-            const donationCountParagraph = document.getElementById("donation-count");
-            const bookTitle = document.getElementById('selected-book-title').value;
-    
-            alert(`Anda mendonasikan buku ${bookTitle} sebanyak ${donationCount} buku.`);
-            donationCount = 0; // Reset the variable
-            document.getElementById("total_buku_donasi").value = ""; // Clear the input field
-            // You can add code here to handle the donation process with the selected book title.
-        }
-    
-        function prepareDonasikan(bookTitle) {
-            document.getElementById('selected-book-title').value = bookTitle;
-        }
-    
-    
 
     document.addEventListener('DOMContentLoaded', function () {
         const hapusButtons = document.querySelectorAll('.btn-hapus');
