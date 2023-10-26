@@ -51,7 +51,9 @@ def add_product_ajax(request):
         if judul_buku and total_buku:  # Pastikan name dan total_buku tidak kosong
             new_product = data_donasi1(judul_buku=judul_buku, total_buku=total_buku, resi=resi, user=user)
             new_product.save()
+            location.reload()
             return JsonResponse({'message': 'Product created successfully'})
+            
         else:
             return JsonResponse({'error': 'Invalid data'}, status=400)
 
