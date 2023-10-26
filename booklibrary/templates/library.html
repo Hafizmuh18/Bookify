@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Library</title>
+<link rel="stylesheet" href="{% static 'booklibrary_static/css/styles.css' %}"/>
+{% endblock meta %}
+
+{% block content %}
+<!-- <div class="container">
+    <h1>Test</h1>
+
+    <ul>
+        {% for book in books %}
+            <li class="item">
+                <h2>{{ book.title }}</h2>
+                <p><img src="{{ book.thumbnail }}" alt="a book"></p>
+                <a href="https://www.amazon.com/s?k={{ book.isbn13 }}" 
+                   target="_blank" 
+                   rel="noopener noreferrer">Redirect to Amazon</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div> -->
+
+<!-- <h1 class="center">Test</h1> -->
+
+<nav class="bg-gray-800">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="flex flex-shrink-0 items-center">
+            <h1 class="font-bold text-blue-500 text-2xl mt-0.5 mb-1 ml-0.5">B O O K I F Y</h1>
+          </div>
+          <div class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4 ">
+                <a href="{% url 'homepage:show_homepage' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+            </div>
+          </div>
+        </div>
+        <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <button type="button" class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+            <span class="sr-only">View notifications</span>
+            
+          </button>
+
+          <div class="relative ml-3">
+            {% if not user.is_authenticated %}
+            <div>
+                <button class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onclick="location.href='/login/'">Login</button>
+            </div>
+            {% else %} 
+          
+            <div class="flex space-x-4">
+              <p class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">{{user.get_username}}</p>
+              <button class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onclick="location.href='/logout/'">Logout</button>
+            </div>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+</nav>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="#library" data-toggle="tab">Library</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#bookshelf" data-toggle="tab">Bookshelf</a>
+    </li>
+</ul>
+
+<input type="text" class="form-control" id="searchBar" placeholder="Search for a book...">
+
+<div class="container">
+    <ul>
+        {% for book in books %}
+            <a href="#" class="card-link">
+            <div class="card item">
+                <img src="{{ book.thumbnail }}" class="card-img-top" alt="a book">
+                <div class="card-body">
+                  <h5 class="card-title" id="title">{{ book.title }}</h5>
+                  <p class="card-text" id="year">{{ book.published_year }}</p>
+                </div>
+                <ul class="list-group list-group-flush" style="border: 1px solid blue; height:auto;">
+                  <li class="list-group-item">{{ book.genre }}</li>
+                  <li class="list-group-item">Rating: {{ book.ratings_avg }}/5</li>
+                  <li class="list-group-item">Rating Counts: {{ book.ratings_count }}</li>
+                </ul>
+                <!-- <div class="card-body">
+                  <button
+                  type="button"
+                  href="https://www.amazon.com/s?k={{ book.isbn13 }}" 
+                  class="btn btn-warning btn-sm"
+                  target="_blank"
+                  rel="noopener noreferrer">Buy this book</a>
+                </div>
+                <div class="card-body">
+                  <a type="button" href="#" class="btn btn-info btn-sm">Details</a>
+                </div> -->
+            </div>
+            </a>
+        {% endfor %}
+    </ul>
+</div>
+
+
+<script src="{% static 'booklibrary_static/js/script.js' %}"></script>
+<script>
+document.getElementById("bookshelfLink").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.getElementById("libraryContent").style.display = "none";
+    document.getElementById("bookshelfContent").style.display = "block";
+});
+
+document.getElementById("libraryLink").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.getElementById("bookshelfContent").style.display = "none";
+    document.getElementById("libraryContent").style.display = "block";
+});
+
+$(document).ready(function() {
+    $("#bookshelfLink").click(function(event) {
+        event.preventDefault();
+        $("#libraryContent").hide();
+        $("#bookshelfContent").show();
+    });
+
+    $("#libraryLink").click(function(event) {
+        event.preventDefault();
+        $("#bookshelfContent").hide();
+        $("#libraryContent").show();
+    });
+});
+</script>
+{% endblock content %}

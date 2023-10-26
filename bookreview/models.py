@@ -12,13 +12,17 @@ from django.conf import settings
 
 # BECAUSE WE ARE USING CUSTOM USER
 #--------------------------------------------------------------------------------------------------
-from django.db import models
-from django.contrib.auth.models import User
 
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=100)
 
-class data_donasi1(models.Model):
-    judul_buku = models.CharField(max_length=255)
-    total_buku = models.IntegerField()
-    resi = models.TextField()
+class Review(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
+    rating = models.PositiveIntegerField()
+    comment = models.TextField()
+
+class Favorite(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

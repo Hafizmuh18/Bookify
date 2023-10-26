@@ -1,6 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.conf import settings
 
 #-------------------------------------IMPORTANT!---------------------------------------------------
 # ALWAYS USE 'settings.AUTH_USER_MODEL' INSTEAD OF THE USUAL 'User' WHEN CONNECTING MODELS TO USER!
@@ -12,13 +10,4 @@ from django.conf import settings
 
 # BECAUSE WE ARE USING CUSTOM USER
 #--------------------------------------------------------------------------------------------------
-from django.db import models
-from django.contrib.auth.models import User
-
-
-class data_donasi1(models.Model):
-    judul_buku = models.CharField(max_length=255)
-    total_buku = models.IntegerField()
-    resi = models.TextField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
+# Create your models here.

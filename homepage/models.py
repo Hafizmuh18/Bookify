@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
 #-------------------------------------IMPORTANT!---------------------------------------------------
@@ -12,13 +13,15 @@ from django.conf import settings
 
 # BECAUSE WE ARE USING CUSTOM USER
 #--------------------------------------------------------------------------------------------------
-from django.db import models
-from django.contrib.auth.models import User
 
+#CustomUser model instead of the default User model for our UserCreation mechanism (So we can add 'Role' field)
+class CustomUser(AbstractUser):
+    ROLES = (
+        ('member', 'Member'),
+        ('moderator', 'Moderator')
+    )
+    role = models.CharField(max_length=10, choices=ROLES, default='member')
 
-class data_donasi1(models.Model):
-    judul_buku = models.CharField(max_length=255)
-    total_buku = models.IntegerField()
-    resi = models.TextField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
+class Book(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, null=True, blank=True)
+    book = models.TextField()
