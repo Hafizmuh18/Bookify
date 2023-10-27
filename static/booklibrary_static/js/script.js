@@ -3,6 +3,18 @@ $.ajaxSetup({
     headers: { "X-CSRFToken": $('input[name=csrfmiddlewaretoken]').val() }
 });
 
+// BUTTONS
+// $('#bookDetailsModal').on('show.bs.modal', function(event) {
+//     var button = $(event.relatedTarget);  // Button that triggered the modal
+//     var source = button.data('source');  // Get the data-source value
+
+//     if (source === 'bookshelf') {
+//         $('#borrowReadButton').text('Complete Reading');
+//     } else {
+//         $('#borrowReadButton').text('Borrow/Read');
+//     }
+// });
+
 // LIBRARY TAB
 $(document).on('click', '.card-link', function() {
     const bookId = $(this).data('book-id');
@@ -17,6 +29,7 @@ $(document).on('click', '.card-link', function() {
     const ratings_count = $(this).data('ratings_count');
     const isbn10 = $(this).data('isbn10');
     const isbn13 = $(this).data('isbn13');
+    const source = $(this).data('source')
 
     // Now populate the modal with these values
     $("#modalBookTitle").text(title);
@@ -33,6 +46,16 @@ $(document).on('click', '.card-link', function() {
     // Buttons
     $('#buyOnAmazonButton').attr('href', `https://www.amazon.com/s?k=${isbn13}`);
     $('#borrowReadButton').data('book-id', bookId);
+
+    // Check the source and adjust the button text
+    if(source === 'library') {
+        $('#borrowReadButton').text('Borrow/Read');
+        $('#borrowReadButton').attr('class', 'btn btn-primary');
+    } else if(source === 'bookshelf') {
+        $('#borrowReadButton').attr('class', 'btn btn-success');
+        $('#borrowReadButton').text('Complete Reading');
+    }
+
     // Finally, display the modal
     $("#bookDetailsModal").modal('show');
 });
@@ -47,21 +70,30 @@ $(document).ready(function() {
         type: 'GET',
         dataType: 'json',
         success: function(data) {
+            console.log(data);
             var content = '';
             $.each(data, function(index, book) {
                 content += `
-                    <a href="#" class="card-link">
+                    <a href="#" class="card-link"
+                       data-book-id="${book.id}" 
+                       data-title="${book.title}"
+                       data-author="${book.author}"
+                       data-year="${book.published_year}"
+                       data-genre="${book.genre}"
+                       data-pages="${book.pages}"
+                       data-description="${book.description}"
+                       data-thumbnail="${book.thumbnail}"
+                       data-ratings_avg="${book.ratings_avg}"
+                       data-ratings_count="${book.ratings_count}"
+                       data-isbn10="${book.isbn10}" 
+                       data-isbn13="${book.isbn13}" 
+                       data-source="bookshelf">
                         <div class="card item">
                             <img src="${book.thumbnail}" class="card-img-top" alt="a book">
                             <div class="card-body">
                                 <h5 class="card-title">${book.title}</h5>
                                 <p class="card-text">Status: ${book.status}</p>
                             </div>
-                            <ul class="list-group list-group-flush" style="border: 1px solid blue; height:auto;">
-                                <li class="list-group-item">${book.genre}</li>
-                                <li class="list-group-item">Rating: ${book.ratings_avg}/5</li>
-                                <li class="list-group-item">Rating Counts: ${book.ratings_count}</li>
-                            </ul>
                         </div>
                     </a>`;
             });
@@ -81,59 +113,35 @@ $(document).ready(function() {
 });
 
 // BORROW/READ FEATURE
-// function loadUserBookshelf() {
-//     $.ajax({
-//         url: '/booklibrary/get-user-bookshelf/',
-//         method: 'GET',
-//         success: function(data) {
-//             $('#bookshelf').empty();
-//             $.each(data, function(index, book) {
-//                 content += `
-//                     <a href="#" class="card-link">
-//                         <div class="card item">
-//                             <img src="${book.thumbnail}" class="card-img-top" alt="a book">
-//                             <div class="card-body">
-//                                 <h5 class="card-title">${book.title}</h5>
-//                                 <p class="card-text">Status: ${book.status}</p>
-//                             </div>
-//                             <ul class="list-group list-group-flush" style="border: 1px solid blue; height:auto;">
-//                                 <li class="list-group-item">${book.genre}</li>
-//                                 <li class="list-group-item">Rating: ${book.ratings_avg}/5</li>
-//                                 <li class="list-group-item">Rating Counts: ${book.ratings_count}</li>
-//                             </ul>
-//                         </div>
-//                     </a>`;
-//             });
-//         },
-//         error: function() {
-//             alert('Failed to load bookshelf. Please try again.');
-//         }
-//     });
-// }
+function showNotification() {
+    $('#notification').show().delay(5000).fadeOut(); // This will display the notification and hide it after 5 seconds.
+  }
 
-// $(document).on('click', '#borrowReadButton', function(event) {
-//     event.preventDefault();
-//     let bookId = $(this).data('book-id');
-//     $.ajax({
-//         url: '/booklibrary/borrow-book/', // Update the URL based on your Django URL structure
-//         method: 'POST',
-//         data: {
-//             'book_id': bookId,
-//             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-//         },
-//         success: function(response) {
-//             if (response.status === 'success') {
-//                 $('#bookDetailsModal').modal('hide');
-//                 alert('Book added to your shelf successfully!');
+$(document).on('click', '#borrowReadButton', function(event) {
+    event.preventDefault();
+    let bookId = $(this).data('book-id');
+    $.ajax({
+        url: '/booklibrary/borrow-book/', // Update the URL based on your Django URL structure
+        method: 'POST',
+        data: {
+            'book_id': bookId,
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function(response) {
+            if (response.status === 'success') {
+                showNotification()
+                $('#bookDetailsModal').modal('hide');
 
-//                 // Optional: Reload the bookshelf tab or use AJAX to dynamically update it
-//                 // loadUserBookshelf(); 
-//             } else {
-//                 alert('Error: ' + response.message);
-//             }
-//         },
-//         error: function() {
-//             alert('An error occurred. Please try again.');
-//         }
-//     });
-// });
+                // Optional: Reload the bookshelf tab or use AJAX to dynamically update it
+                // loadUserBookshelf(); 
+            } else {
+                alert('Error: ' + response.message);
+            }
+        },
+        error: function() {
+            alert('An error occurred. Please try again.');
+        }
+    });
+});
+
+

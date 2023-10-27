@@ -30,11 +30,18 @@ def get_user_bookshelf(request):
     for user_book in user_books:
         book = user_book.book
         books_data.append({
+            'id' : book.id,
             'title': book.title,
-            'thumbnail': book.thumbnail,
+            'author': book.author,
+            'published_year': book.published_year,
             'genre': book.genre,
+            'pages' : book.pages,
+            'description': book.description,
+            'thumbnail': book.thumbnail,
             'ratings_avg': book.ratings_avg,
             'ratings_count': book.ratings_count,
+            'isbn10': book.isbn10,
+            'isbn13': book.isbn13,
             'status': user_book.get_status_display()
         })
 
@@ -51,8 +58,6 @@ def borrow_book(request):
         # Create or get a UserBook instance
         user_book, created = UserBook.objects.get_or_create(user=user, book=book)
 
-        # You can set additional details for the UserBook instance here if needed
-        # For example, you might want to update the status to "reading" here
         if created:
             user_book.status = 'reading'
             user_book.save()

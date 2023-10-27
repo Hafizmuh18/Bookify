@@ -77,7 +77,8 @@
          data-ratings_avg="{{ book.ratings_avg }}"
          data-ratings_count="{{ book.ratings_count }}"
          data-isbn10="{{ book.isbn10 }}" 
-         data-isbn13="{{ book.isbn13 }}" >
+         data-isbn13="{{ book.isbn13 }}" 
+         data-source="library">
 
       <!-- TAMPILAN CARDS -->
       <div class="card item" data-book-id="{{ book.id }}">
@@ -86,11 +87,6 @@
             <h5 class="card-title" id="title">{{ book.title }}</h5>
             <p class="card-text" id="year">{{ book.author }}</p>
           </div>
-          <!-- <ul class="list-group list-group-flush" style="height:auto;">
-            <li class="list-group-item">{{ book.genre }}</li>
-            <li class="list-group-item">Rating: {{ book.ratings_avg }}/5</li>
-            <li class="list-group-item">Rating Counts: {{ book.ratings_count }}</li>
-          </ul> -->
       </div>
 
       </a>
@@ -126,7 +122,7 @@
         <p class="no-margin"><b>ISBN-13 :</b> <span id="modalBookIsbn13"></span></p>
         <br>
         <!-- Borrow/Read button -->
-        <button id="borrowReadButton" class="btn btn-primary">Borrow/Read</button>
+        <button id="borrowReadButton" class="btn btn-primary"></button>
         <!-- Buy on Amazon button -->
         <a id="buyOnAmazonButton" href="#" target="_blank" class="btn btn-warning">Buy on <b>Amazon</b></a>
       </div>
@@ -134,6 +130,13 @@
   </div>
 </div>
 
+<!-- ALERT -->
+<div id="notification" class="alert alert-success" role="alert" style="display: none;">
+  Book added to your shelf successfully!
+</div>
+
+<!-- CSRF TOKEN -->
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
 <!-- =======================SCRIPT SECTION======================= -->
 <script src="{% static 'booklibrary_static/js/script.js' %}"></script>
