@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Acer\OneDrive - UNIVERSITAS INDONESIA\Pictures\Documents\Kuliah\Semester 3\PBP\TK\Bookify\env"
+VIRTUAL_ENV="C:\Users\Daril\OneDrive\Desktop\Bookify\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
