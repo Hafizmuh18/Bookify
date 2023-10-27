@@ -61,7 +61,30 @@
 <!-- SEARCH BAR (NOT FUNCTIONAL YET) -->
 <input type="text" class="form-control" id="searchBar" placeholder="Search for a book...">
 
-<!-- LIBRARY TAB -->
+<!-- ALERT -->
+<!-- =========BORROW/READ=========== -->
+<div id="notificationSuccess" class="alert alert-success" role="alert" style="display: none;">
+  Book added to your shelf successfully!
+</div>
+<div id="notificationFailed" class="alert alert-warning" role="alert" style="display: none;">
+  Book is already in your shelf!
+</div>
+<!-- =========COMPLETE/READ=========== -->
+<div id="readingSuccess" class="alert alert-success" role="alert" style="display: none;">
+  You have completed reading this book!
+</div>
+<div id="readingFailed" class="alert alert-warning" role="alert" style="display: none;">
+  Something went wrong, please try again later!
+</div>
+<!-- =========REREADING/READ=========== -->
+<div id="reReadingSuccess" class="alert alert-success" role="alert" style="display: none;">
+  Good Job! You are re-reading this book!
+</div>
+<div id="reReadingFailed" class="alert alert-warning" role="alert" style="display: none;">
+  Something went wrong, please try again later!
+</div>
+
+<!-- LIBRARY TAB/CARDS -->
 <div class="container" id="library">
   {% for book in books %}
       <!-- MENYIMPAN DATA UNTUK DIAMBIL DI MODAL & CLICKABLE CARD-->
@@ -78,7 +101,8 @@
          data-ratings_count="{{ book.ratings_count }}"
          data-isbn10="{{ book.isbn10 }}" 
          data-isbn13="{{ book.isbn13 }}" 
-         data-source="library">
+         data-source="library"
+         data-status="not_started">
 
       <!-- TAMPILAN CARDS -->
       <div class="card item" data-book-id="{{ book.id }}">
@@ -93,7 +117,7 @@
   {% endfor %}
 </div>
 
-<!-- BOOKSHELF TAB -->
+<!-- BOOKSHELF TAB/CARDS -->
 <div class="container" id="bookshelf" style="display: none;">
 </div>
 
@@ -130,10 +154,7 @@
   </div>
 </div>
 
-<!-- ALERT -->
-<div id="notification" class="alert alert-success" role="alert" style="display: none;">
-  Book added to your shelf successfully!
-</div>
+
 
 <!-- CSRF TOKEN -->
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
