@@ -12,18 +12,24 @@ class BookForm(ModelForm):
         super(BookForm, self).__init__(*args, **kwargs)
         self.fields['book'].widget.attrs.update({
             'placeholder': 'Enter your books here',
-            'cols' : '20',
-            'rows' : '5',
+            'cols': '20',
+            'rows': '5',
         })
 
-#CustomUserCreationForm instead of the default UserCreationForm, so we can add roles to user
 class CustomUserCreationForm(UserCreationForm):
-    class Meta(UserCreationForm):
+    class Meta:
         model = CustomUser
-        fields = ('username', 'password1', 'password2','role')
+        fields = ('username', 'password1', 'password2', 'role')
 
-#Same as above, but only to modify
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'password','role')
+        fields = ('username', 'role')
+
+class RegistrationForm(forms.Form):
+    email = forms.EmailField(label='Email')
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    role = forms.ChoiceField(choices=CustomUser.ROLES, label='Role')
+    address = forms.CharField(label='Address', required=False)
+    phone_number = forms.CharField(label='Phone Number', required=False)
+    date_of_birth = forms.DateField(label='Date of Birth', required=False)
