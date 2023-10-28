@@ -44,26 +44,70 @@
     </div>
 </nav>
 
-<!-- SEARCH BAR (NOT FUNCTIONAL YET) -->
 <input type="text" class="form-control" id="searchBar" placeholder="Search for a book...">
 
-<!-- LIBRARY TAB -->
 <div class="container" >
+
     {% for book in bookmarks %}
-      <div class="card item" data-book-id="{{ book.id }}">
-          <img src="{{ book.thumbnail }}" class="card-img-top" alt="a book">
+
+      <a href="#" class="card-link"
+      data-book-id="{{ book.book.book.id }}" 
+      data-title="{{ book.book.book.title }}"
+      data-author="{{ book.book.book.author }}"
+      data-year="{{ book.book.book.published_year }}"
+      data-genre="{{ book.book.book.genre }}"
+      data-pages="{{ book.book.book.pages }}"
+      data-description="{{ book.book.book.description }}"
+      data-thumbnail="{{ book.book.book.thumbnail }}"
+      data-ratings_avg="{{ book.book.book.ratings_avg }}"
+      data-ratings_count="{{ book.book.book.ratings_count }}"
+      data-isbn10="{{ book.book.book.isbn10 }}" 
+      data-isbn13="{{ book.book.book.isbn13 }}" 
+      data-source="library">
+
+      <div class="card item" dbook_id="{{ book.id }}">
+          <img src="{{ book.book.book.thumbnail }}" class="card-img-top" alt="a book">
           <div class="card-body">
-              <h5 class="card-title" id="title">{{ book.title }}</h5>
-              <p class="card-text">{{ book.author }}</p>
+              <h5 class="card-title" id="title">{{ book.book.book.title }}</h5>
+              <p class="card-text">{{ book.book.book.author }}</p>
           </div>
           <a href="{% url 'bookmark:delete_bookmark' book.id %}">
-            <button class="delete-button">Delete</button>
-        </a>
-        
+            <button class="delete-button" id="deleteButtons">Delete</button>
+          </a> 
       </div>
     {% endfor %}
 </div>
 
+<div class="modal fade" id="bookDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalBookTitle">Book Title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Book details go here --> 
+        <img id="modalBookThumbnail" src="" alt="Book Thumbnail">
+        <br>
+        <h6><b>Description:</b></h6>
+        <p id="modalBookDescription"></p>
+        <p class="no-margin"> <b><span id="modalBookGenreYear"></span></b> </p>
+        <p class="no-margin"><b>Author :</b> <span id="modalBookAuthor"></span></p>
+        <p class="no-margin"><b>Pages :</b> <span id="modalBookPages"></span></p>
+        <p class="no-margin"><b>Rating :</b> <span id="modalBookAvgRate"></span>/5</p>
+        <p class="no-margin"><b>Total Reviewer :</b> <span id="modalBookCountRate"></span></p>
+        <p class="no-margin"><b>ISBN-10 :</b> <span id="modalBookIsbn10"></span></p>
+        <p class="no-margin"><b>ISBN-13 :</b> <span id="modalBookIsbn13"></span></p>
+        <br>
+
+        <button id="borrowReadButton" class="btn btn-primary">Read</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="{% static 'bookmark_static/css/script.js' %}"></script>
-</script>
 {% endblock content %}

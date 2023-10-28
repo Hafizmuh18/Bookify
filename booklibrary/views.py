@@ -11,11 +11,11 @@ from booklibrary.models import UserBook
 # Create your views here.
 def show_library(request):
     books = Books.objects.all()
-    # userstatus = UserBook.objects.filter(user=request.user, status = 'not_started')
+    userstatus = UserBook.objects.filter(user=request.user, status = 'not_started')
 
     context = {
         'books' : books,
-        # 'userstatus' : userstatus
+        'userstatus' : userstatus
     }
 
     return render(request, 'library.html', context)
@@ -65,7 +65,6 @@ def borrow_book(request):
             return JsonResponse({'status': 'success', 'message': 'Book added to shelf successfully!'})
         else:
             return JsonResponse({'status': 'error', 'message': 'Book is already in your shelf!'})
-<<<<<<< HEAD
-=======
+
     return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
->>>>>>> 1b735db48cfa17aef1830a5b52a6aa6572e7a2d3
+

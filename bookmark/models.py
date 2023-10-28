@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from booklibrary.models import UserBook
 
 #-------------------------------------IMPORTANT!---------------------------------------------------
 # ALWAYS USE 'settings.AUTH_USER_MODEL' INSTEAD OF THE USUAL 'User' WHEN CONNECTING MODELS TO USER!
@@ -14,11 +15,7 @@ from django.conf import settings
 #--------------------------------------------------------------------------------------------------
 # Create your models here.
 
-
-class Book(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.CharField(max_length=100)
-
-class bookMark(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+class Bookmark(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    book = models.ForeignKey(UserBook, on_delete=models.CASCADE, null=True)
+

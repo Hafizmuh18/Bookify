@@ -4,23 +4,19 @@ from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from .models import bookMark, Book
+from .models import Bookmark
 from django.shortcuts import get_object_or_404
-from books.models import Books
+from django.urls import reverse
+from booklibrary.models import UserBook
 from django.contrib import messages
-from django.http import HttpResponseBadRequest
 
-
-
-
-
-# Create your views here.
 
 
 @login_required
 def show_bookmark(request):
     user = request.user
-    bookmarks = Books.objects.all()
+    bookmarks = Bookmark.objects.all()
+
 
     context ={
         'bookmarks':bookmarks,
@@ -28,26 +24,32 @@ def show_bookmark(request):
 
     return render(request, 'show_bookmark.html', context)
 
-def add_to_bookmark(request, book_id):
+def add_bookmark(request, book_id):
+    book = get_object_or_404(UserBook, id=book_id)
     user = request.user
-    book = get_object_or_404(Book, id=book_id)
-    bookmark, created = bookMark.objects.get_or_create(user=user, book=book)
-
-    if created:
-        messages.success(request, f'"{book.title}" telah ditambahkan ke bookmark Anda.')
+    
+    # Cek apakah buku tersebut sudah ada dalam bookmark pengguna
+    if not Bookmark.objects.filter(user=user, book=book).exists():
+        # Buat objek Bookmark baru dan simpan ke database
+        bookmark = Bookmark(user=user, book=book)
+        bookmark.save()
+        
+        # Tambahkan pesan sukses jika Anda menggunakan Django messages
+        messages.success(request, f'"{book.book.title}" telah ditambahkan ke bookmark Anda.')
     else:
-        messages.warning(request, f'"{book.title}" sudah ada di bookmark Anda.')
-
+        # Tambahkan pesan peringatan jika buku sudah ada dalam bookmark
+        messages.warning(request, f'"{book.book.title}" sudah ada di bookmark Anda.')
+    
+    # Redirect ke halaman yang sesuai
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-@login_required
-@csrf_exempt
-def delete_bookmark(request, bookmark_id):
-    if request.method == 'POST':
-        user = request.user
-        bookmark = get_object_or_404(bookMark, id=bookmark_id, user=user)
-        bookmark.delete()
-        messages.success(request, 'Bookmark berhasil dihapus')  
-        return redirect('bookmark:show_bookmark')  
-    else:
-        return HttpResponseBadRequest('Metode permintaan tidak valid')
+
+def delete_bookmark(request, book_id):
+    bookmark = get_object_or_404(Bookmark, id=book_id)
+    bookmark.delete()
+
+    return HttpResponseRedirect(reverse('bookmark:show_bookmark'))
+
+def show_json(request):
+    data = Bookmark.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")

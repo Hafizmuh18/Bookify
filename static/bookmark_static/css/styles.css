@@ -28,6 +28,15 @@
     text-decoration: none;
 }
 
+.card-link:hover .card {
+    /* optional: add some style when hovering over the card, e.g., change background */
+    background-color: #f5f5f5;
+}
+
+.card-link .card {
+    transition: background-color 0.3s ease; /* smooth transition for hover effect */
+}
+
 .card-title {
     margin: 0;
     height: 52px;
@@ -54,6 +63,16 @@
 
 /* Style untuk tombol Delete */
 .delete-button {
+    width: 10rem;
+    background-color: #94cbcb; 
+    color: #ffffff; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+}
+
+.Read-button {
     width: 10rem;
     background-color: #94cbcb; 
     color: #ffffff; 

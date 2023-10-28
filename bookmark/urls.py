@@ -6,9 +6,7 @@ app_name = 'bookmark'
 
 urlpatterns = [
     path('', show_bookmark, name='show_bookmark'),
-    path('add_to_bookmark/<int:book_id>/', add_to_bookmark, name='add_to_bookmark'),
-    path('delete/<int:bookmark_id>/', delete_bookmark, name='delete_bookmark'),
-
-
-
+    path('add_bookmark/<int:book_id>/', add_bookmark, name='add_bookmark'),
+    path('delete/<int:book_id>/', delete_bookmark, name='delete_bookmark'),
+    path('json/', show_json, name='show_json'), 
 ]
