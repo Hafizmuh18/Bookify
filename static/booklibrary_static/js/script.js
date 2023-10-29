@@ -3,7 +3,9 @@ $.ajaxSetup({
     headers: { "X-CSRFToken": $('input[name=csrfmiddlewaretoken]').val() }
 });
 
-// ==================================================================
+// Global Search
+let searchQuery = ''
+
 
 // BOOKSHELF TAB / CARDS
 $(document).ready(function() {
@@ -11,14 +13,14 @@ $(document).ready(function() {
         event.preventDefault();
         $("#library").hide();
         $.ajax({
-        url: '/booklibrary/get-user-bookshelf/',
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            console.log(data);
-            var content = '';
-            $.each(data, function(index, book) {
-                content += `
+            url: '/booklibrary/get-user-bookshelf/',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                var content = '';
+                $.each(data, function (index, book) {
+                    content += `
                     <a href="#" class="card-link"
                        data-book-id="${book.id}" 
                        data-title="${book.title}"
@@ -42,16 +44,16 @@ $(document).ready(function() {
                             </div>
                         </div>
                     </a>`;
-            });
-            $("#bookshelf").html(content).show();
-        },
-        error: function(error) {
-            console.error("Error fetching bookshelf:", error);
-        }
-    });
+                });
+                $("#bookshelf").html(content).show();
+            },
+            error: function (error) {
+                console.error("Error fetching bookshelf:", error);
+            }
+        });
     });
 
-    $("#libraryLink").click(function(event) {
+    $("#libraryLink").click(function (event) {
         event.preventDefault();
         $("#bookshelf").hide();
         $("#library").show();
@@ -194,6 +196,8 @@ $(document).on('click', '.completeReading', function(event) {
     });
 });
 
+// ==================================================================
+
 // RE-READING FEATURE
 function showReReadingSuccess() {
     $('#reReadingSuccess').show().delay(3000).fadeOut(); // This will display the notification and hide it after 5 seconds.
@@ -236,3 +240,67 @@ $(document).on('click', '.reRead', function(event) {
         }
     });
 });
+
+// ==================================================================
+
+// Tangkap event submit form pencarian
+$("#search_book").submit(function (event) {
+    event.preventDefault(); // Hindari form dari proses submit bawaan browser
+
+    searchQuery = $("#search_bar").val(); // Ambil nilai dari input pencarian
+
+    // Kirim permintaan Ajax dengan kata kunci pencarian dan nomor halaman
+    loadBooks(searchQuery);
+});
+
+function loadBooks(searchQuery) {
+    $.ajax({
+        type: "POST",
+        url: "load-books/",
+        data: {
+            search_query: searchQuery,
+        },
+        success: function (response) {
+            if (response.status === "success") {
+                // Update daftar buku di antarmuka pengguna dengan data yang diterima
+                const booksContainer = $("#library");
+                booksContainer.empty(); // Kosongkan daftar buku sebelum memasukkan buku yang baru dimuat
+                $.each(JSON.parse(response.books), function (index, book) {
+                    // Tambahkan buku ke daftar buku
+                    booksContainer.append(`<a
+                    href="#"
+                    class="card-link"
+                    data-book-id="${book.pk}"
+                    data-title="${book.fields.title}"
+                    data-author="${book.fields.author}"
+                    data-year="${book.fields.published_year}"
+                    data-genre="${book.fields.genre}"
+                    data-pages="${book.fields.pages}"
+                    data-description="${book.fields.description}"
+                    data-thumbnail="${book.fields.thumbnail}"
+                    data-ratings_avg="${book.fields.ratings_avg}"
+                    data-ratings_count="${book.fields.ratings_count}"
+                    data-isbn10="${book.fields.isbn10}"
+                    data-isbn13="${book.fields.isbn13}"
+                    data-source="library"
+                    data-status="not-started"
+                    data-review-url="book/${book.fields.isbn13}/review/"
+                    >
+                        <div class="card item" data-book-id="${book.pk}">
+                        <img src="${book.fields.thumbnail}" class="card-img-top" alt="a book" />
+                        <div class="card-body">
+                            <h5 class="card-title" id="title">${book.fields.title}</h5>
+                            <p class="card-text" id="year">${book.fields.author}</p>
+                        </div>
+                        </div>
+                    </a>`);
+                });
+            } else {
+                console.log(response.message);
+            }
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ": " + xhr.responseText);
+        },
+    });
+}
