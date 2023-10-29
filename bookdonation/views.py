@@ -111,38 +111,7 @@ def hapus_produk(request, product_id):
         # Handle jika produk tidak ditemukan
         return redirect('bookdonation:show_donation')  # Redirect ke halaman produk setelah menghapus
 
-def logout_user(request):
-    logout(request)
-    response = HttpResponseRedirect(reverse('bookdonation:login'))
-    response.delete_cookie('last_login')
-    return response
 
-def login_user(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            response = HttpResponseRedirect(reverse("bookdonation:show_donation")) 
-            response.set_cookie('last_login', str(datetime.datetime.now()))
-            return response
-        else:
-            messages.info(request, 'Sorry, incorrect username or password. Please try again.')
-    context = {}
-    return render(request, 'login.html', context)
-
-def register(request):
-    form = UserCreationForm() # membuat UserCreationForm baru dari yang sudah di-impor sebelumnya dengan memasukkan QueryDict berdasarkan input dari user pada request.POST.
-
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save() #membuat dan menyimpan data dari form tersebut. 
-            messages.success(request, 'Your account has been successfully created!')
-            return redirect('bookdonation:login')
-    context = {'form':form}
-    return render(request, 'register.html', context)
 
 def show_json_by_id(request, id):
     data = data_donasi1.objects.filter(pk=id)

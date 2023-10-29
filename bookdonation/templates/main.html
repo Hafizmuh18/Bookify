@@ -69,7 +69,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetInputFields()">Close</button>
                     <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
                 </div>
             </div>
@@ -113,7 +113,7 @@
     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
                     <!-- Tambahkan tombol atau fungsi untuk menangani donasi dari library di sini -->
                 </div>
             </div>
@@ -139,14 +139,37 @@
                 
                 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalLibrary">Kembali</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="showBookAlert()">Donasikan buku ini</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalLibrary" onclick="resetInputFields()">Kembali</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetInputFields()">Tutup</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#donasikanQR">Donasikan</button>
                     <input type="hidden" id="selected-book-title" value="">
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="donasikanQR" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Donasi Buku</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <p>Berikut adalah QR untuk menyelesaikan pesanan Anda:</p>
+                        <img src="https://img.freepik.com/premium-vector/unique-qr-code-isolated-white-back_251819-2203.jpg?w=740" alt="QR Code">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="showBookAlert()">Donasikan sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
     
     
 
@@ -166,8 +189,7 @@
                 <td>{{ product.judul_buku }}</td>
                 <td>
                     <span id="amount_{{ product.id }}">{{ product.total_buku }}</span>
-                    <button class="btn btn-primary btn-sm btn-increment" data-product-id="{{ product.id }}" data-increment="1" data-action="{% url 'bookdonation:tambah_produk' product.id %}">+</button>
-                    <button class="btn btn-primary btn-sm btn-decrement" data-product-id="{{ product.id }}" data-increment="-1" data-action="{% url 'bookdonation:kurang_produk' product.id %}">-</button>
+            
                 </td>
                 <td>{{ product.resi }}</td>
                 <td>
@@ -180,7 +202,7 @@
                     <form method="post" action="{% url 'bookdonation:hapus_produk' product.id %}">
                         {% csrf_token %}
                        
-                        <button > Terverifikasi </button>
+                        <p> Terverifikasi </p>
                 </td>
                     </form>
                 </td>
@@ -202,6 +224,13 @@
 
 <script>
 
+    function resetInputFields() {
+        document.getElementById("judul_buku").value = "";
+        document.getElementById("total_buku").value = "";
+        document.getElementById("resi").value = "";
+        document.getElementById("total_buku_donasi").value = "";
+    }
+
 
     let donationCount = 0; // Variable to store the book count
     
@@ -217,9 +246,10 @@
         const bookTitle = document.getElementById('selected-book-title').value;
     
         const donationCount = document.getElementById("total_buku_donasi").value;
-        const resi = "-"; // Set default value for resi
+        const resi = "library"; // Set default value for resi
     
         alert(`Anda mendonasikan buku ${bookTitle} sebanyak ${donationCount} buku.`);
+        resetInputFields()
         
         // Create a FormData object and add the values to it
         const formData = new FormData();
@@ -359,65 +389,5 @@
 
     refreshProducts()
  
-    document.addEventListener('DOMContentLoaded', function () {
-        const incrementButtons = document.querySelectorAll('.btn-increment');
-        const decrementButtons = document.querySelectorAll('.btn-decrement');
-
-        incrementButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const productId = this.getAttribute('data-product-id');
-                const incrementValue = parseInt(this.getAttribute('data-increment'));
-                const action = this.getAttribute('data-action');
-
-                // Kirim permintaan AJAX ke action
-                fetch(action, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Perbarui tampilan dengan data jumlah produk yang baru
-                    const amountElement = document.getElementById(`amount_${productId}`);
-                    amountElement.innerText = data.new_amount;
-
-                    // Refresh laman setelah pembaruan
-                    location.reload();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            });
-        });
-
-        decrementButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const productId = this.getAttribute('data-product-id');
-                const incrementValue = parseInt(this.getAttribute('data-increment'));
-                const action = this.getAttribute('data-action');
-
-                // Kirim permintaan AJAX ke action
-                fetch(action, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Perbarui tampilan dengan data jumlah produk yang baru
-                    const amountElement = document.getElementById(`amount_${productId}`);
-                    amountElement.innerText = data.new_amount;
-
-                    // Refresh laman setelah pembaruan
-                    location.reload();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            });
-        });
-    });
 </script>
 {% endblock content %}
