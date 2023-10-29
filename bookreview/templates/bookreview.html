@@ -56,13 +56,19 @@
     >
       <div class="card bg-light mb-3">
         <div class="card-body">
+          <h6 class="card-subtitle mb-2">{{ review.user.username }}</h6>
           <h5 class="card-title">
-            <strong>Rating : {{ review.rating }}</strong>
+            <strong
+              >Rating :
+              <i class="fa fa-star" style="color: #ffc107"></i>
+              {{review.rating}}</strong
+            >
           </h5>
           <p class="card-text">{{ review.comment }}</p>
         </div>
-        {% if review.user == request.user %}
+        {% if review.user == request.user or request.user.role == 'moderator' %}
         <div class="card-footer">
+          {% if review.user == request.user %}
           <button
             type="button"
             id="editReviewButton"
@@ -73,6 +79,7 @@
           >
             Edit
           </button>
+          {% endif %}
           <button
             type="button"
             class="btn btn-sm btn-danger"
@@ -86,7 +93,7 @@
       </div>
     </div>
 
-    {% if review.user == request.user %}
+    {% if review.user == request.user or request.user.role == "moderator" %}
     <!-- Modal Delete -->
     <div
       class="modal fade"
@@ -180,7 +187,9 @@
                   id="rating1"
                   value="1"
                 />
-                <label class="form-check-label" for="rating1">1</label>
+                <label class="form-check-label" for="rating1">
+                  <i class="fas fa-star"></i>
+                </label>
               </div>
               <div class="form-check form-check-inline">
                 <input
@@ -190,7 +199,10 @@
                   id="rating2"
                   value="2"
                 />
-                <label class="form-check-label" for="rating2">2</label>
+                <label class="form-check-label" for="rating2">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </label>
               </div>
               <div class="form-check form-check-inline">
                 <input
@@ -200,7 +212,11 @@
                   id="rating3"
                   value="3"
                 />
-                <label class="form-check-label" for="rating3">3</label>
+                <label class="form-check-label" for="rating3">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </label>
               </div>
               <div class="form-check form-check-inline">
                 <input
@@ -210,7 +226,12 @@
                   id="rating4"
                   value="4"
                 />
-                <label class="form-check-label" for="rating4">4</label>
+                <label class="form-check-label" for="rating4">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </label>
               </div>
               <div class="form-check form-check-inline">
                 <input
@@ -220,7 +241,13 @@
                   id="rating5"
                   value="5"
                 />
-                <label class="form-check-label" for="rating5">5</label>
+                <label class="form-check-label" for="rating5">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </label>
               </div>
             </div>
             <hr />
