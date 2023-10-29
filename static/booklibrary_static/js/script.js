@@ -244,14 +244,39 @@ $(document).on('click', '.reRead', function(event) {
 // ==================================================================
 
 // Tangkap event submit form pencarian
-$("#search_book").submit(function (event) {
-    event.preventDefault(); // Hindari form dari proses submit bawaan browser
+// $("#search_book").submit(function (event) {
+//     event.preventDefault(); // Hindari form dari proses submit bawaan browser
 
-    searchQuery = $("#search_bar").val(); // Ambil nilai dari input pencarian
+//     searchQuery = $("#search_bar").val(); // Ambil nilai dari input pencarian
 
-    // Kirim permintaan Ajax dengan kata kunci pencarian dan nomor halaman
-    loadBooks(searchQuery);
+//     // Kirim permintaan Ajax dengan kata kunci pencarian dan nomor halaman
+//     loadBooks(searchQuery);
+// });
+
+// Debounce function
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this;
+        const args = arguments;
+        const later = function() {
+            timeout = null;
+            func.apply(context, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Prevent Submit Button
+$("#search_book").submit(function(event) {
+    event.preventDefault(); // just prevent the default submit behavior
 });
+
+$("#search_bar").on('keyup', debounce(function() {
+    const searchQuery = $(this).val();
+    loadBooks(searchQuery);
+}, 100));  // The search will be triggered after 300ms of the user stopping typing
 
 function loadBooks(searchQuery) {
     $.ajax({
@@ -286,7 +311,7 @@ function loadBooks(searchQuery) {
                     data-status="not-started"
                     data-review-url="book/${book.fields.isbn13}/review/"
                     >
-                        <div class="card item" data-book-id="${book.pk}">
+                        <div class="card item border-secondary" data-book-id="${book.pk}">
                         <img src="${book.fields.thumbnail}" class="card-img-top" alt="a book" />
                         <div class="card-body">
                             <h5 class="card-title" id="title">${book.fields.title}</h5>
@@ -304,3 +329,7 @@ function loadBooks(searchQuery) {
         },
     });
 }
+
+$(document).ready(function() {
+    loadBooks(searchQuery);
+});

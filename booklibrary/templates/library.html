@@ -30,6 +30,18 @@
               class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >Home</a
             >
+            <a 
+            class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            href="#libraryTab"
+            data-toggle="tab" 
+            id="libraryLink"
+            >Library</a>
+            <a 
+            class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            href="#bookshelf"
+            data-toggle="tab" 
+            id="bookshelfLink"
+            >Bookshelf</a>
           </div>
         </div>
       </div>
@@ -76,10 +88,11 @@
 </nav>
 
 <!-- LIBRARY/BOOKSHELF NAVBAR -->
-<ul class="nav nav-tabs">
+<!-- <ul class="nav nav-tabs" style="background-color: #245877;">
   <li class="nav-item">
     <a
-      class="nav-link active"
+      style="color: black;"
+      class="nav-link"
       href="#libraryTab"
       data-toggle="tab"
       id="libraryLink"
@@ -87,11 +100,16 @@
     >
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#bookshelf" data-toggle="tab" id="bookshelfLink"
+    <a 
+       style="color: black;"
+       class="nav-link" 
+       href="#bookshelf" 
+       data-toggle="tab" 
+       id="bookshelfLink"
       >Bookshelf</a
     >
   </li>
-</ul>
+</ul> -->
 
 <!-- ALERT -->
 <!-- =========BORROW/READ=========== -->
@@ -117,20 +135,25 @@
 </div>
 
 <!-- LIBRARY TAB/CARDS -->
-<div id="libraryTab">
-  <form id="search_book" class="container">
-    <div class="input-group">
-      <input
-        type="text"
-        id="search_bar"
-        name="search_bar"
-        class="form-control"
-        placeholder="Search book by title or isbn10 or isbn13 ..."
-      />
-      <button class="btn btn-dark" type="submit">Search</button>
-    </div>
-  </form>
+<div id="libraryTab" class="container">
+  <div class="box">
+    <form id="search_book">
+      <div class="input-group">
+        <input
+          type="text"
+          id="search_bar"
+          name="txt"
+          class="input"
+          onmouseout="this.value = ''; this.blur();"
+        />
+        <!-- <button class="btn btn-dark" type="submit">Search</button> -->
+      </div>
+    </form>
+    <i class="fas fa-search"></i>
+  </div>
+
   <div class="container" id="library"></div>
+
 </div>
 
 <!-- BOOKSHELF TAB/CARDS -->
