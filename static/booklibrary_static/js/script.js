@@ -6,20 +6,64 @@ $.ajaxSetup({
 // Global Search
 let searchQuery = ''
 
-// BUTTONS
-// $('#bookDetailsModal').on('show.bs.modal', function(event) {
-//     var button = $(event.relatedTarget);  // Button that triggered the modal
-//     var source = button.data('source');  // Get the data-source value
 
-//     if (source === 'bookshelf') {
-//         $('#borrowReadButton').text('Complete Reading');
-//     } else {
-//         $('#borrowReadButton').text('Borrow/Read');
-//     }
-// });
+// BOOKSHELF TAB / CARDS
+$(document).ready(function() {
+    $("#bookshelfLink").click(function(event) {
+        event.preventDefault();
+        $("#library").hide();
+        $.ajax({
+            url: '/booklibrary/get-user-bookshelf/',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                var content = '';
+                $.each(data, function (index, book) {
+                    content += `
+                    <a href="#" class="card-link"
+                       data-book-id="${book.id}" 
+                       data-title="${book.title}"
+                       data-author="${book.author}"
+                       data-year="${book.published_year}"
+                       data-genre="${book.genre}"
+                       data-pages="${book.pages}"
+                       data-description="${book.description}"
+                       data-thumbnail="${book.thumbnail}"
+                       data-ratings_avg="${book.ratings_avg}"
+                       data-ratings_count="${book.ratings_count}"
+                       data-isbn10="${book.isbn10}" 
+                       data-isbn13="${book.isbn13}" 
+                       data-source="bookshelf"
+                       data-status="${book.status}">
+                        <div class="card item">
+                            <img src="${book.thumbnail}" class="card-img-top" alt="a book">
+                            <div class="card-body">
+                                <h5 class="card-title">${book.title}</h5>
+                                <p class="card-text" data-status-id="${book.id}">Status: ${book.status}</p>
+                            </div>
+                        </div>
+                    </a>`;
+                });
+                $("#bookshelf").html(content).show();
+            },
+            error: function (error) {
+                console.error("Error fetching bookshelf:", error);
+            }
+        });
+    });
 
-// LIBRARY TAB
-$(document).on('click', '.card-link', function () {
+    $("#libraryLink").click(function (event) {
+        event.preventDefault();
+        $("#bookshelf").hide();
+        $("#library").show();
+    });
+});
+
+// ==================================================================
+
+// MODAL CARDS
+$(document).on('click', '.card-link', function() {
     const bookId = $(this).data('book-id');
     const title = $(this).data('title');
     const author = $(this).data('author');
@@ -33,9 +77,7 @@ $(document).on('click', '.card-link', function () {
     const isbn10 = $(this).data('isbn10');
     const isbn13 = $(this).data('isbn13');
     const source = $(this).data('source');
-
-    const baseUrl = $('#base-url').data('base-url').replace('/9999', '');
-    const fullUrl = `${baseUrl}${bookId}`;
+    const bookStatus = $(this).data('status'); 
 
     // Now populate the modal with these values
     $("#modalBookTitle").text(title);
@@ -52,83 +94,189 @@ $(document).on('click', '.card-link', function () {
     // Buttons
     $('#buyOnAmazonButton').attr('href', `https://www.amazon.com/s?k=${isbn13}`);
     $('#borrowReadButton').data('book-id', bookId);
-    $('#bookmark').attr('href', fullUrl);
-
 
     // Check the source and adjust the button text
-    if (source === 'library') {
-        $('#borrowReadButton').text('Borrow/Read');
-        $('#borrowReadButton').attr('class', 'btn btn-primary');
-        $('#borrowReadButton').data('url', '/booklibrary/borrow-book/');
-    } else if (source === 'bookshelf') {
-        $('#borrowReadButton').attr('class', 'btn btn-success');
-        $('#borrowReadButton').text('Complete Reading');
-        $('#borrowReadButton').data('url', '/booklibrary/complete-reading/');
+    if(source === 'library') {
+        $('#borrowReadButton').text('Borrow/Read'); //set Text
+        $('#borrowReadButton').attr('class', 'btn btn-primary borrowRead'); //set Button's Class
+    } else if(source === 'bookshelf') {
+        // If-else status condition here
+        if(bookStatus === 'Completed') {
+            $('#borrowReadButton').text('Re-read Book');
+            $('#borrowReadButton').attr('class', 'btn btn-info reRead');
+        } else {
+            $('#borrowReadButton').text('Complete Reading');
+            $('#borrowReadButton').attr('class', 'btn btn-success completeReading');
+        }
     }
 
     // Finally, display the modal
     $("#bookDetailsModal").modal('show');
 });
 
-// BOOKSHELF TAB
-$(document).ready(function () {
-    loadBooks(searchQuery)
-
-    $("#bookshelfLink").click(function (event) {
-        event.preventDefault();
-        $("#library").hide();
-        loadBookshelf()
-    });
-
-    $("#libraryLink").click(function (event) {
-        event.preventDefault();
-        $("#bookshelf").hide();
-        $("#library").show();
-    });
-});
+// ==================================================================
 
 // BORROW/READ FEATURE
-function showNotification() {
-    $('#notification').show().delay(5000).fadeOut(); // This will display the notification and hide it after 5 seconds.
-}
+function showNotificationSuccess() {
+    $('#notificationSuccess').show().delay(3000).fadeOut(); // This will display the notification and hide it after 5 seconds.
+  }
+function showNotificationFailed() {
+    $('#notificationFailed').show().delay(3000).fadeOut(); // This will display the notification and hide it after 5 seconds.
+  }
 
-$(document).on('click', '#borrowReadButton', function (event) {
+$(document).on('click', '.borrowRead', function(event) {
     event.preventDefault();
     let bookId = $(this).data('book-id');
     $.ajax({
-        url: $(this).data('url'), // Update the URL based on your Django URL structure
+        url: '/booklibrary/borrow-book/', 
         method: 'POST',
         data: {
             'book_id': bookId,
             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
         },
-        success: function (response) {
+        success: function(response) {
             if (response.status === 'success') {
-                showNotification()
+                window.scrollTo(0, 0);
+                showNotificationSuccess();
                 $('#bookDetailsModal').modal('hide');
-                loadBookshelf()
 
-                // Optional: Reload the bookshelf tab or use AJAX to dynamically update it
-                // loadUserBookshelf(); 
             } else {
-                alert('Error: ' + response.message);
+                window.scrollTo(0, 0);
+                showNotificationFailed();
+                $('#bookDetailsModal').modal('hide');
             }
         },
-        error: function () {
+        error: function() {
             alert('An error occurred. Please try again.');
         }
     });
 });
 
-// Tangkap event submit form pencarian
-$("#search_book").submit(function (event) {
-    event.preventDefault(); // Hindari form dari proses submit bawaan browser
+// ==================================================================
 
-    searchQuery = $("#search_bar").val(); // Ambil nilai dari input pencarian
+// COMPLETE READING FEATURE
+function showReadingSuccess() {
+    $('#readingSuccess').show().delay(3000).fadeOut(); // This will display the notification and hide it after 5 seconds.
+  }
+function showReadingFailed() {
+    $('#readingFailed').show().delay(3000).fadeOut(); // This will display the notification and hide it after 5 seconds.
+  }
+$(document).on('click', '.completeReading', function(event) {
+    event.preventDefault();
+    let bookId = $(this).data('book-id');
+    $.ajax({
+        url: '/booklibrary/complete-reading/', // Update the URL based on your Django URL structure
+        method: 'POST',
+        data: {
+            'book_id': bookId,
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function(response) {
 
-    // Kirim permintaan Ajax dengan kata kunci pencarian dan nomor halaman
-    loadBooks(searchQuery);
+            if (response.status === 'success') {
+                $(`[data-status-id="${bookId}"]`).text('Status: Completed');
+                // Update the modal button
+                $('#borrowReadButton').text('Re-read Book');
+                $('#borrowReadButton').attr('class', 'btn btn-info reRead');
+                // Update the status data attribute for the card link
+                $(`.card-link[data-book-id="${bookId}"]`).data('status', 'Completed');
+                window.scrollTo(0, 0);
+                showReadingSuccess();
+                $('#bookDetailsModal').modal('hide');
+
+            } else {
+                window.scrollTo(0, 0);
+                showReadingFailed();
+                $('#bookDetailsModal').modal('hide');
+            }
+        },
+        error: function() {
+            alert('An error occurred. Please try again.');
+        }
+    });
 });
+
+// ==================================================================
+
+// RE-READING FEATURE
+function showReReadingSuccess() {
+    $('#reReadingSuccess').show().delay(3000).fadeOut(); // This will display the notification and hide it after 5 seconds.
+  }
+function showReReadingFailed() {
+    $('#reReadingFailed').show().delay(3000).fadeOut(); // This will display the notification and hide it after 5 seconds.
+  }
+$(document).on('click', '.reRead', function(event) {
+    event.preventDefault();
+    let bookId = $(this).data('book-id');
+    $.ajax({
+        url: '/booklibrary/re-read-book/', // Update the URL based on your Django URL structure
+        method: 'POST',
+        data: {
+            'book_id': bookId,
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function(response) {
+
+            if (response.status === 'success') {
+                $(`[data-status-id="${bookId}"]`).text('Status: Currently Reading');
+                $(`[data-status-id="${bookId}"]`).text('Status: Currently Reading');
+                // Update the modal button
+                $('#borrowReadButton').text('Complete Reading');
+                $('#borrowReadButton').attr('class', 'btn btn-success completeReading');
+                // Update the status data attribute for the card link
+                $(`.card-link[data-book-id="${bookId}"]`).data('status', 'Reading');
+                window.scrollTo(0, 0);
+                $('#bookDetailsModal').modal('hide');
+                showReReadingSuccess();
+
+            } else {
+                window.scrollTo(0, 0);
+                showReReadingFailed();
+                $('#bookDetailsModal').modal('hide');
+            }
+        },
+        error: function() {
+            alert('An error occurred. Please try again.');
+        }
+    });
+});
+
+// ==================================================================
+
+// Tangkap event submit form pencarian
+// $("#search_book").submit(function (event) {
+//     event.preventDefault(); // Hindari form dari proses submit bawaan browser
+
+//     searchQuery = $("#search_bar").val(); // Ambil nilai dari input pencarian
+
+//     // Kirim permintaan Ajax dengan kata kunci pencarian dan nomor halaman
+//     loadBooks(searchQuery);
+// });
+
+// Debounce function
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this;
+        const args = arguments;
+        const later = function() {
+            timeout = null;
+            func.apply(context, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Prevent Submit Button
+$("#search_book").submit(function(event) {
+    event.preventDefault(); // just prevent the default submit behavior
+});
+
+$("#search_bar").on('keyup', debounce(function() {
+    const searchQuery = $(this).val();
+    loadBooks(searchQuery);
+}, 100));  // The search will be triggered after 300ms of the user stopping typing
 
 function loadBooks(searchQuery) {
     $.ajax({
@@ -159,10 +307,12 @@ function loadBooks(searchQuery) {
                     data-ratings_count="${book.fields.ratings_count}"
                     data-isbn10="${book.fields.isbn10}"
                     data-isbn13="${book.fields.isbn13}"
+                    data-source="library"
+                    data-status="not-started"
                     data-review-url="book/${book.fields.isbn13}/review/"
                     data-source="library"
                     >
-                        <div class="card item" data-book-id="${book.pk}">
+                        <div class="card item border-secondary" data-book-id="${book.pk}">
                         <img src="${book.fields.thumbnail}" class="card-img-top" alt="a book" />
                         <div class="card-body">
                             <h5 class="card-title" id="title">${book.fields.title}</h5>
@@ -181,42 +331,6 @@ function loadBooks(searchQuery) {
     });
 }
 
-function loadBookshelf() {
-    $.ajax({
-        url: '/booklibrary/get-user-bookshelf/',
-        type: 'POST',
-        dataType: 'json',
-        success: function (data) {
-            var content = '';
-            $.each(data, function (index, book) {
-                content += `
-                <a href="#" class="card-link"
-                   data-book-id="${book.id}" 
-                   data-title="${book.title}"
-                   data-author="${book.author}"
-                   data-year="${book.published_year}"
-                   data-genre="${book.genre}"
-                   data-pages="${book.pages}"
-                   data-description="${book.description}"
-                   data-thumbnail="${book.thumbnail}"
-                   data-ratings_avg="${book.ratings_avg}"
-                   data-ratings_count="${book.ratings_count}"
-                   data-isbn10="${book.isbn10}" 
-                   data-isbn13="${book.isbn13}" 
-                   data-source="bookshelf">
-                    <div class="card item">
-                        <img src="${book.thumbnail}" class="card-img-top" alt="a book">
-                        <div class="card-body">
-                            <h5 class="card-title">${book.title}</h5>
-                            <p class="card-text">Status: ${book.status}</p>
-                        </div>
-                    </div>
-                </a>`;
-            });
-            $("#bookshelf").html(content).show();
-        },
-        error: function (error) {
-            console.error("Error fetching bookshelf:", error);
-        }
-    });
-}
+$(document).ready(function() {
+    loadBooks(searchQuery);
+});

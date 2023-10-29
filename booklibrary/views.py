@@ -10,6 +10,7 @@ from books.models import Books
 from booklibrary.models import UserBook
 
 # Create your views here.
+# MAIN PAGE
 def show_library(request):
     return render(request, 'library.html')
 
@@ -33,6 +34,7 @@ def load_books_ajax(request):
     # Jika metode permintaan tidak valid
     return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
 
+# SHOW USER'S BOOKSHELF
 @login_required
 def get_user_bookshelf(request):
     user = request.user
@@ -62,6 +64,7 @@ def get_user_bookshelf(request):
 
 from django.http import JsonResponse
 
+# BORROW BOOK
 def borrow_book(request):
     if request.method == 'POST':
         user = request.user
@@ -81,3 +84,41 @@ def borrow_book(request):
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
 
+<<<<<<< HEAD
+=======
+# COMPLETE READING
+def complete_reading(request):
+    if request.method == 'POST':
+        user = request.user
+        book_id = request.POST.get('book_id')
+        book = Books.objects.get(id=book_id)
+
+        # Get a UserBook instance
+        user_book = UserBook.objects.filter(user=user, book=book).first()
+
+        if user_book:
+            user_book.status = 'completed'
+            user_book.save()
+            return JsonResponse({'status': 'success', 'message': 'Status updated successfully!'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Book is not in your shelf!'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
+# REREADING BOOK
+def re_read_book(request):
+    if request.method == 'POST':
+        user = request.user
+        book_id = request.POST.get('book_id')
+        book = Books.objects.get(id=book_id)
+
+        # Get a UserBook instance
+        user_book = UserBook.objects.filter(user=user, book=book).first()
+
+        if user_book:
+            user_book.status = 'reading'
+            user_book.save()
+
+            return JsonResponse({'status': 'success', 'message': 'Book status updated to currently reading!'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Book not found in your shelf!'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
+>>>>>>> origin/Daril_Premerged
