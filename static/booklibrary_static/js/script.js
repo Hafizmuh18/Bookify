@@ -31,7 +31,7 @@ $(document).on('click', '.card-link', function() {
     const isbn13 = $(this).data('isbn13');
     const source = $(this).data('source');
 
-    const baseUrl = $('#base-url').data('base-url').replace('9999', '');
+    const baseUrl = $('#base-url').data('base-url').replace('/9999', '');
     const fullUrl = `${baseUrl}${bookId}`;
 
     // Now populate the modal with these values

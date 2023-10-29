@@ -9,12 +9,16 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from booklibrary.models import UserBook
 from django.contrib import messages
+from books.models import Books
 
 @login_required
 def show_bookmark(request):
     genre = request.GET.get('genre')
     user = request.user
-    bookmarks = Bookmark.objects.filter(book__book__genre=genre) if genre else Bookmark.objects.all()
+    bookmarks = UserBook.objects.filter(user=user)
+
+    if genre:
+        bookmarks = Books.filter(book__book__genre=genre)
 
     context = {
         'bookmarks': bookmarks,
@@ -22,7 +26,6 @@ def show_bookmark(request):
     }
 
     return render(request, 'show_bookmark.html', context)
-
 
 
 @login_required
@@ -42,9 +45,26 @@ def delete_bookmark(request, book_id):
     bookmark = get_object_or_404(Bookmark, id=book_id)
     bookmark.delete()
 
-    return HttpResponseRedirect(reverse('bookmark:show_bookmark'))
+    return HttpResponseRedirect(reverse('bookmark:show_bookmarked'))
 
 def show_json(request):
     data = Bookmark.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+
+@login_required
+def show_bookmarked(request):
+    genre = request.GET.get('genre')
+    user = request.user
+    bookmarks = Bookmark.objects.filter(user=user)
+
+    if genre:
+        bookmarks = Books.filter(book__book__genre=genre)
+
+    context = {
+        'bookmarks': bookmarks,
+        'selected_genre': genre,
+    }
+
+    return render(request, 'show_bookmarked.html', context)
 
