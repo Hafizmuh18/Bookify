@@ -54,9 +54,11 @@ $(document).on('click', '.card-link', function () {
     if (source === 'library') {
         $('#borrowReadButton').text('Borrow/Read');
         $('#borrowReadButton').attr('class', 'btn btn-primary');
+        $('#borrowReadButton').data('url', '/booklibrary/borrow-book/');
     } else if (source === 'bookshelf') {
         $('#borrowReadButton').attr('class', 'btn btn-success');
         $('#borrowReadButton').text('Complete Reading');
+        $('#borrowReadButton').data('url', '/booklibrary/complete-reading/');
     }
 
     // Finally, display the modal
@@ -70,44 +72,7 @@ $(document).ready(function () {
     $("#bookshelfLink").click(function (event) {
         event.preventDefault();
         $("#library").hide();
-        $.ajax({
-            url: '/booklibrary/get-user-bookshelf/',
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                var content = '';
-                $.each(data, function (index, book) {
-                    content += `
-                    <a href="#" class="card-link"
-                       data-book-id="${book.id}" 
-                       data-title="${book.title}"
-                       data-author="${book.author}"
-                       data-year="${book.published_year}"
-                       data-genre="${book.genre}"
-                       data-pages="${book.pages}"
-                       data-description="${book.description}"
-                       data-thumbnail="${book.thumbnail}"
-                       data-ratings_avg="${book.ratings_avg}"
-                       data-ratings_count="${book.ratings_count}"
-                       data-isbn10="${book.isbn10}" 
-                       data-isbn13="${book.isbn13}" 
-                       data-source="bookshelf">
-                        <div class="card item">
-                            <img src="${book.thumbnail}" class="card-img-top" alt="a book">
-                            <div class="card-body">
-                                <h5 class="card-title">${book.title}</h5>
-                                <p class="card-text">Status: ${book.status}</p>
-                            </div>
-                        </div>
-                    </a>`;
-                });
-                $("#bookshelf").html(content).show();
-            },
-            error: function (error) {
-                console.error("Error fetching bookshelf:", error);
-            }
-        });
+        loadBookshelf()
     });
 
     $("#libraryLink").click(function (event) {
@@ -126,7 +91,7 @@ $(document).on('click', '#borrowReadButton', function (event) {
     event.preventDefault();
     let bookId = $(this).data('book-id');
     $.ajax({
-        url: '/booklibrary/borrow-book/', // Update the URL based on your Django URL structure
+        url: $(this).data('url'), // Update the URL based on your Django URL structure
         method: 'POST',
         data: {
             'book_id': bookId,
@@ -136,6 +101,7 @@ $(document).on('click', '#borrowReadButton', function (event) {
             if (response.status === 'success') {
                 showNotification()
                 $('#bookDetailsModal').modal('hide');
+                loadBookshelf()
 
                 // Optional: Reload the bookshelf tab or use AJAX to dynamically update it
                 // loadUserBookshelf(); 
@@ -189,6 +155,7 @@ function loadBooks(searchQuery) {
                     data-isbn10="${book.fields.isbn10}"
                     data-isbn13="${book.fields.isbn13}"
                     data-review-url="book/${book.fields.isbn13}/review/"
+                    data-source="library"
                     >
                         <div class="card item" data-book-id="${book.pk}">
                         <img src="${book.fields.thumbnail}" class="card-img-top" alt="a book" />
@@ -206,5 +173,45 @@ function loadBooks(searchQuery) {
         error: function (xhr, errmsg, err) {
             console.log(xhr.status + ": " + xhr.responseText);
         },
+    });
+}
+
+function loadBookshelf() {
+    $.ajax({
+        url: '/booklibrary/get-user-bookshelf/',
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            var content = '';
+            $.each(data, function (index, book) {
+                content += `
+                <a href="#" class="card-link"
+                   data-book-id="${book.id}" 
+                   data-title="${book.title}"
+                   data-author="${book.author}"
+                   data-year="${book.published_year}"
+                   data-genre="${book.genre}"
+                   data-pages="${book.pages}"
+                   data-description="${book.description}"
+                   data-thumbnail="${book.thumbnail}"
+                   data-ratings_avg="${book.ratings_avg}"
+                   data-ratings_count="${book.ratings_count}"
+                   data-isbn10="${book.isbn10}" 
+                   data-isbn13="${book.isbn13}" 
+                   data-source="bookshelf">
+                    <div class="card item">
+                        <img src="${book.thumbnail}" class="card-img-top" alt="a book">
+                        <div class="card-body">
+                            <h5 class="card-title">${book.title}</h5>
+                            <p class="card-text">Status: ${book.status}</p>
+                        </div>
+                    </div>
+                </a>`;
+            });
+            $("#bookshelf").html(content).show();
+        },
+        error: function (error) {
+            console.error("Error fetching bookshelf:", error);
+        }
     });
 }
