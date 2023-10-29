@@ -84,8 +84,6 @@ def borrow_book(request):
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
 
-<<<<<<< HEAD
-=======
 # COMPLETE READING
 def complete_reading(request):
     if request.method == 'POST':
@@ -121,4 +119,3 @@ def re_read_book(request):
         else:
             return JsonResponse({'status': 'error', 'message': 'Book not found in your shelf!'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
->>>>>>> origin/Daril_Premerged
