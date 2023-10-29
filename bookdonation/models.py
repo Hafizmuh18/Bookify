@@ -20,5 +20,6 @@ class data_donasi1(models.Model):
     judul_buku = models.CharField(max_length=255)
     total_buku = models.IntegerField()
     resi = models.TextField()
+    status = models.CharField(max_length=255)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
