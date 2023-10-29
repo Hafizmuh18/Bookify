@@ -30,12 +30,12 @@
           <div class="relative ml-3">
             {% if not user.is_authenticated %}
             <div>
-                <button class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onclick="location.href='/login/'">Login</button>
+                <button class="text-gray-300 hover-bg-gray-700 hover-text-white px-3 py-2 rounded-md text-sm font-medium" onclick="location.href='/login/'">Login</button>
             </div>
             {% else %} 
             <div class="flex space-x-4">
-              <p class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">{{user.get_username}}</p>
-              <button class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onclick="location.href='/logout/'">Logout</button>
+              <p class="text-gray-300 hover-text-white px-3 py-2 rounded-md text-sm font-medium">{{user.get_username}}</p>
+              <button class="text-gray-300 hover-bg-gray-700 hover-text-white px-3 py-2 rounded-md text-sm font-medium" onclick="location.href='/logout/'">Logout</button>
             </div>
             {% endif %}
           </div>
@@ -46,10 +46,29 @@
 
 <input type="text" class="form-control" id="searchBar" placeholder="Search for a book...">
 
-<div class="container" >
+<div class="filter-form">
+  <form method="get" action="{% url 'bookmark:show_bookmark' %}">
+      <label for="genre">Filter by Genre:</label>
+      <select name="genre" id="genre">
+          <option value="">All Genres</option>
+          <option value="Fiction">Fiction</option>
+          <option value="Comics & Graphic Novels">Comics & Graphic Novels</option>   
+          <option value="Religion">Religion</option>
+          <option value="Philosophy">Philosophy</option>
+          <option value="Biography & Autobiography">Biography & Autobiography</option>
+          <option value="Literary Criticism">Literary Criticism</option>
+          <option value="Juvenile Fiction">Juvenile Fiction</option>   
+          <option value="History">History</option>
+          <option value="Mystery">Mystery</option>  
+          <option value="Drama">Drama</option>       
+      </select>
 
+      <button type="submit">Apply Filters</button>
+  </form>
+</div>
+
+<div class="container">
     {% for book in bookmarks %}
-
       <a href="#" class="card-link"
       data-book-id="{{ book.book.book.id }}" 
       data-title="{{ book.book.book.title }}"
@@ -65,7 +84,7 @@
       data-isbn13="{{ book.book.book.isbn13 }}" 
       data-source="library">
 
-      <div class="card item" dbook_id="{{ book.id }}">
+      <div class="card item" data-book-id="{{ book.id }}">
           <img src="{{ book.book.book.thumbnail }}" class="card-img-top" alt="a book">
           <div class="card-body">
               <h5 class="card-title" id="title">{{ book.book.book.title }}</h5>
@@ -78,6 +97,7 @@
     {% endfor %}
 </div>
 
+<!-- Existing code below the bookmarks -->
 <div class="modal fade" id="bookDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

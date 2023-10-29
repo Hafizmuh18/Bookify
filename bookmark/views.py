@@ -10,40 +10,34 @@ from django.urls import reverse
 from booklibrary.models import UserBook
 from django.contrib import messages
 
-
-
 @login_required
 def show_bookmark(request):
+    genre = request.GET.get('genre')
     user = request.user
-    bookmarks = Bookmark.objects.all()
+    bookmarks = Bookmark.objects.filter(book__book__genre=genre) if genre else Bookmark.objects.all()
 
-
-    context ={
-        'bookmarks':bookmarks,
+    context = {
+        'bookmarks': bookmarks,
+        'selected_genre': genre,
     }
 
     return render(request, 'show_bookmark.html', context)
 
+
+
+@login_required
 def add_bookmark(request, book_id):
     book = get_object_or_404(UserBook, id=book_id)
     user = request.user
-    
-    # Cek apakah buku tersebut sudah ada dalam bookmark pengguna
     if not Bookmark.objects.filter(user=user, book=book).exists():
-        # Buat objek Bookmark baru dan simpan ke database
         bookmark = Bookmark(user=user, book=book)
         bookmark.save()
-        
-        # Tambahkan pesan sukses jika Anda menggunakan Django messages
         messages.success(request, f'"{book.book.title}" telah ditambahkan ke bookmark Anda.')
     else:
-        # Tambahkan pesan peringatan jika buku sudah ada dalam bookmark
-        messages.warning(request, f'"{book.book.title}" sudah ada di bookmark Anda.')
-    
-    # Redirect ke halaman yang sesuai
+        messages.warning(request, f'"{book.book.title}" sudah ada di bookmark Anda.')  
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required
 def delete_bookmark(request, book_id):
     bookmark = get_object_or_404(Bookmark, id=book_id)
     bookmark.delete()
@@ -53,3 +47,4 @@ def delete_bookmark(request, book_id):
 def show_json(request):
     data = Bookmark.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
