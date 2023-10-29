@@ -44,7 +44,7 @@ Media untuk berdonasi buku yang disalurkan ke sekolah dsb.
 Filter informasi data buku yg "akan dibaca" oleh user.
 
 # **Sumber dataset katalog buku**
-https://developers.google.com/books/ (Google Books API)
+https://www.kaggle.com/datasets/dylanjcastillo/7k-books-with-metadata/code (Kaggle)
 
 # **Role atau peran pengguna beserta deskripsinya**
 
