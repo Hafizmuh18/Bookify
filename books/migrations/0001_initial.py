@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('ratings_avg', models.FloatField(blank=True, null=True)),
                 ('ratings_count', models.IntegerField(blank=True, null=True)),
                 ('isbn10', models.IntegerField(blank=True, null=True)),
-                ('isbn13', models.BigIntegerFieldIntegerField(blank=True, null=True)),
+                ('isbn13', models.BigIntegerField(blank=True, null=True)),
             ],
         ),
     ]
