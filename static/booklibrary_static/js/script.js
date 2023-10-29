@@ -32,7 +32,10 @@ $(document).on('click', '.card-link', function () {
     const ratings_count = $(this).data('ratings_count');
     const isbn10 = $(this).data('isbn10');
     const isbn13 = $(this).data('isbn13');
-    const source = $(this).data('source')
+    const source = $(this).data('source');
+
+    const baseUrl = $('#base-url').data('base-url').replace('/9999', '');
+    const fullUrl = `${baseUrl}${bookId}`;
 
     // Now populate the modal with these values
     $("#modalBookTitle").text(title);
@@ -49,6 +52,8 @@ $(document).on('click', '.card-link', function () {
     // Buttons
     $('#buyOnAmazonButton').attr('href', `https://www.amazon.com/s?k=${isbn13}`);
     $('#borrowReadButton').data('book-id', bookId);
+    $('#bookmark').attr('href', fullUrl);
+
 
     // Check the source and adjust the button text
     if (source === 'library') {

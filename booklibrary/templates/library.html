@@ -162,14 +162,8 @@
         <!-- Borrow/Read button -->
         <button id="borrowReadButton" class="btn btn-primary"></button>
         <!-- Buy on Amazon button -->
-        <a
-          id="buyOnAmazonButton"
-          href="#"
-          target="_blank"
-          class="btn btn-warning"
-          >Buy on <b>Amazon</b></a
-        >
-      </div>
+        <a id="buyOnAmazonButton" href="#" target="_blank" class="btn btn-warning">Buy on <b>Amazon</b></a>
+        <a id="bookmark" href="#" class="btn btn-warning">Bookmark</a>
     </div>
   </div>
 </div>
@@ -186,6 +180,9 @@
 
 <!-- CSRF TOKEN -->
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+
+<!-- HIDDEN DATA -->
+<div id="base-url" data-base-url="{% url 'bookmark:add_bookmark' book_id=9999 %}" style="display: none;"></div>
 
 <!-- =======================SCRIPT SECTION======================= -->
 <script src="{% static 'booklibrary_static/js/script.js' %}"></script>
