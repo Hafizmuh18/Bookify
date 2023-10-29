@@ -1,2 +1,2 @@
 release: django-admin migrate --noinput
-web: gunicorn Bookify.wsgi
+web: gunicorn bookify.wsgi
