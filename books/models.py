@@ -12,4 +12,4 @@ class Books(models.Model):
     ratings_avg = models.FloatField(null=True, blank=True)
     ratings_count = models.IntegerField(null=True, blank=True)
     isbn10 = models.TextField(null=True, blank=True)
-    isbn13 = models.BigIntegerField(null=True, blank=True)
+    isbn13 = models.TextField(null=True, blank=True)
