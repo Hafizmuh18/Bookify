@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-6^=_rg^w_jtd&!a=f6is(si3y69#b4ir=8jc0&v1!g!v*)$r^x
 PRODUCTION = env.bool('PRODUCTION', False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -132,7 +132,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
 STATIC_URL = 'static/'
 
 

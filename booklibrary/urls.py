@@ -1,7 +1,6 @@
 from django.urls import path, include
 from homepage.views import *
 from booklibrary.views import *
-from bookmark.views import *
 
 app_name = 'booklibrary'
 

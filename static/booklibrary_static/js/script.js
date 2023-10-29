@@ -310,7 +310,6 @@ function loadBooks(searchQuery) {
                     data-source="library"
                     data-status="not-started"
                     data-review-url="book/${book.fields.isbn13}/review/"
-                    data-source="library"
                     >
                         <div class="card item border-secondary" data-book-id="${book.pk}">
                         <img src="${book.fields.thumbnail}" class="card-img-top" alt="a book" />

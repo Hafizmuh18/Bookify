@@ -81,7 +81,6 @@ def borrow_book(request):
             return JsonResponse({'status': 'success', 'message': 'Book added to shelf successfully!'})
         else:
             return JsonResponse({'status': 'error', 'message': 'Book is already in your shelf!'})
-
     return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
 
 # COMPLETE READING
