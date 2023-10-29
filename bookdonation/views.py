@@ -46,10 +46,11 @@ def add_product_ajax(request):
         judul_buku = request.POST.get("judul_buku")
         total_buku = request.POST.get("total_buku")
         resi = request.POST.get("resi")
+        status = request.POST.get("status")
         user = request.user
 
         if judul_buku and total_buku:  # Pastikan name dan total_buku tidak kosong
-            new_product = data_donasi1(judul_buku=judul_buku, total_buku=total_buku, resi=resi, user=user)
+            new_product = data_donasi1(judul_buku=judul_buku, total_buku=total_buku, resi=resi, user=user, status="menunggu verifikasi")
             new_product.save()
             location.reload()
             return JsonResponse({'message': 'Product created successfully'})
@@ -99,6 +100,18 @@ def kurang_produk(request, product_id):
     except data_donasi1.DoesNotExist:
         # Handle jika produk tidak ditemukan
         return JsonResponse({'error': 'Produk tidak ditemukan'}, status=404)
+    
+def ubah_status(request, product_id):
+    try:
+        produk = data_donasi1.objects.get(id=product_id)
+        produk.status = "Sudah diverifikasi"
+        produk.save()
+
+        # Alihkan pengguna kembali ke halaman yang sesuai setelah mengubah status
+        return redirect('bookdonation:show_donation')  # Gantilah 'nama_rute_tujuan' dengan nama rute yang sesuai
+    except data_donasi1.DoesNotExist:
+        # Handle jika produk tidak ditemukan
+        return JsonResponse({'error': 'Produk tidak ditemukan'}, status=404)
 
 
 def hapus_produk(request, product_id):
@@ -136,9 +149,20 @@ def show_donation(request):
     books = Books.objects.all()
 
     products = data_donasi1.objects.filter(user=request.user)
+    item_verif = data_donasi1.objects.filter(status='Sudah diverifikasi', user=request.user)
+   
+
+
+    semua_produk = data_donasi1.objects.all()
+    item_tunggu = data_donasi1.objects.filter(status='menunggu verifikasi')
+    jumlah_item_tunggu = sum(product.total_buku for product in item_tunggu)
+
 
     jumlah_item = sum(product.total_buku for product in products)
-    jumlah_poin =jumlah_item * 10
+    jumlah_item_verif = sum(product.total_buku for product in item_verif)
+    
+    buku_tunggu = jumlah_item - jumlah_item_verif
+    jumlah_poin =jumlah_item_verif * 10
 
     jumlah_produk = products.count()
     last_login = request.COOKIES.get('last_login', 'Tidak ada informasi login sebelumnya')  # Menggunakan get untuk menghindari KeyError
@@ -148,9 +172,14 @@ def show_donation(request):
         'products': products,
         'jumlah_produk': jumlah_produk,
         'jumlah_item': jumlah_item,
+        'jumlah_item_verif': jumlah_item_verif,
         'last_login': last_login,
         'jumlah_poin': jumlah_poin,
         'books' : books,
+        'role': request.user.role,
+        'semua_produk' : semua_produk,
+        'buku_tunggu': buku_tunggu,
+        'jumlah_item_tunggu': jumlah_item_tunggu,
     }
 
     return render(request, "main.html", context)
