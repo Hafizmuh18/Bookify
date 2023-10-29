@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\Daril\OneDrive\Desktop\Bookify\env
+set VIRTUAL_ENV=D:\Education\College - Information systems\SEMESTER 3\PBP\TK\web clone\clone 1\Bookify\env
 
 if not defined PROMPT set PROMPT=$P$G
 
