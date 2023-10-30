@@ -1,7 +1,7 @@
 [
   {
     "pk": 1,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Gilead",
       "author": "Marilynne Robinson",
@@ -18,7 +18,7 @@
   },
   {
     "pk": 2,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Rage of angels",
       "author": "Sidney Sheldon",
@@ -35,7 +35,7 @@
   },
   {
     "pk": 3,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Warhost of Vastmark",
       "author": "Janny Wurts",
@@ -52,7 +52,7 @@
   },
   {
     "pk": 4,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Back to the Bedroom",
       "author": "Janet Evanovich",
@@ -69,7 +69,7 @@
   },
   {
     "pk": 5,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Rocky Road to Romance",
       "author": "Janet Evanovich",
@@ -86,7 +86,7 @@
   },
   {
     "pk": 6,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Anybody Out There?",
       "author": "Marian Keyes",
@@ -103,7 +103,7 @@
   },
   {
     "pk": 7,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Confusion",
       "author": "Neal Stephenson",
@@ -120,7 +120,7 @@
   },
   {
     "pk": 8,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Practical Demonkeeping",
       "author": "Christopher Moore",
@@ -137,7 +137,7 @@
   },
   {
     "pk": 9,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Island of the Sequined Love Nun",
       "author": "Christopher Moore",
@@ -154,7 +154,7 @@
   },
   {
     "pk": 10,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Lust Lizard of Melancholy Cove",
       "author": "Christopher Moore",
@@ -171,7 +171,7 @@
   },
   {
     "pk": 11,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Last of the Really Great Whangdoodles",
       "author": "Julie Andrews Edwards",
@@ -188,7 +188,7 @@
   },
   {
     "pk": 12,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Merry Christmas, Amelia Bedelia",
       "author": "Peggy Parish",
@@ -205,7 +205,7 @@
   },
   {
     "pk": 13,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The voyage of the Dawn Treader",
       "author": "Clive Staples Lewis",
@@ -222,7 +222,7 @@
   },
   {
     "pk": 14,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Rest, Rabbit, Rest",
       "author": "Jacquelyn Reinach;Richard Hefter",
@@ -239,7 +239,7 @@
   },
   {
     "pk": 15,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Where the Red Fern Grows",
       "author": "Wilson Rawls",
@@ -256,7 +256,7 @@
   },
   {
     "pk": 16,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Poppy's Return",
       "author": "Avi",
@@ -273,7 +273,7 @@
   },
   {
     "pk": 17,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Diary of a Spider",
       "author": "Doreen Cronin",
@@ -290,7 +290,7 @@
   },
   {
     "pk": 18,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "An Old-Fashioned Thanksgiving",
       "author": "Louisa May Alcott;James Bernardin",
@@ -307,7 +307,7 @@
   },
   {
     "pk": 19,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Amazing Maurice and His Educated Rodents",
       "author": "Terry Pratchett",
@@ -324,7 +324,7 @@
   },
   {
     "pk": 20,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Wee Free Men",
       "author": "Terry Pratchett",
@@ -341,7 +341,7 @@
   },
   {
     "pk": 21,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "A Year in the Life of William Shakespeare",
       "author": "James Shapiro",
@@ -358,7 +358,7 @@
   },
   {
     "pk": 22,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Travels",
       "author": "Michael Crichton",
@@ -375,7 +375,7 @@
   },
   {
     "pk": 23,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Walt Whitman",
       "author": "Justin Kaplan",
@@ -392,7 +392,7 @@
   },
   {
     "pk": 24,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "How to Make Love Like a Porn Star",
       "author": "Jenna Jameson;Neil Strauss",
@@ -409,7 +409,7 @@
   },
   {
     "pk": 25,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Bradbury Chronicles",
       "author": "Sam Weller",
@@ -426,7 +426,7 @@
   },
   {
     "pk": 26,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Game",
       "author": "Neil Strauss",
@@ -443,7 +443,7 @@
   },
   {
     "pk": 27,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Ulysses S. Grant",
       "author": "Michael Korda",
@@ -460,7 +460,7 @@
   },
   {
     "pk": 28,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Thomas Jefferson",
       "author": "Christopher Hitchens",
@@ -477,7 +477,7 @@
   },
   {
     "pk": 29,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Muhammad",
       "author": "Karen Armstrong",
@@ -494,7 +494,7 @@
   },
   {
     "pk": 30,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Cash",
       "author": "Johnny Cash",
@@ -511,7 +511,7 @@
   },
   {
     "pk": 31,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Krakatoa",
       "author": "Simon Winchester",
@@ -528,7 +528,7 @@
   },
   {
     "pk": 32,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Sex with the Queen",
       "author": "Eleanor Herman",
@@ -545,7 +545,7 @@
   },
   {
     "pk": 33,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Chaneysville Incident",
       "author": "David Bradley",
@@ -562,7 +562,7 @@
   },
   {
     "pk": 34,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Legends, Lies & Cherished Myths of World History",
       "author": "Richard Shenkman",
@@ -579,7 +579,7 @@
   },
   {
     "pk": 35,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Cathedral, Forge and Waterwheel",
       "author": "Joseph Gies",
@@ -596,7 +596,7 @@
   },
   {
     "pk": 36,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "In the Footsteps of Mr. Kurtz",
       "author": "Michela Wrong",
@@ -613,7 +613,7 @@
   },
   {
     "pk": 37,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Europe",
       "author": "Norman Davies",
@@ -630,7 +630,7 @@
   },
   {
     "pk": 38,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Courtesans and Fishcakes",
       "author": "James Davidson",
@@ -647,7 +647,7 @@
   },
   {
     "pk": 39,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Presidential Power and the Modern Presidents",
       "author": "Richard E. Neustadt",
@@ -664,7 +664,7 @@
   },
   {
     "pk": 40,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Tyranny of the Majority",
       "author": "Lani Guinier",
@@ -681,7 +681,7 @@
   },
   {
     "pk": 41,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "How to Read Literature Like a Professor",
       "author": "Thomas C. Foster",
@@ -698,7 +698,7 @@
   },
   {
     "pk": 42,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Art of the Novel",
       "author": "Milan Kundera",
@@ -715,7 +715,7 @@
   },
   {
     "pk": 43,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Letters from the Earth",
       "author": "Mark Twain",
@@ -732,7 +732,7 @@
   },
   {
     "pk": 44,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Every Book Its Reader",
       "author": "Nicholas A. Basbanes",
@@ -749,7 +749,7 @@
   },
   {
     "pk": 45,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Teaching a Stone to Talk",
       "author": "Annie Dillard",
@@ -766,7 +766,7 @@
   },
   {
     "pk": 46,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Holy the Firm",
       "author": "Annie Dillard",
@@ -783,7 +783,7 @@
   },
   {
     "pk": 47,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Writing Life",
       "author": "Annie Dillard",
@@ -800,7 +800,7 @@
   },
   {
     "pk": 48,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Every Tongue Got to Confess",
       "author": "Zora Neale Hurston",
@@ -817,7 +817,7 @@
   },
   {
     "pk": 49,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Critical Studies",
       "author": "Kathleen Parkinson",
@@ -834,7 +834,7 @@
   },
   {
     "pk": 50,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Henry IV Part Two",
       "author": "William Shakespeare;Adrian Poole",
@@ -851,7 +851,7 @@
   },
   {
     "pk": 51,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Lun Yü",
       "author": "Confucius",
@@ -868,7 +868,7 @@
   },
   {
     "pk": 52,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Presocratics",
       "author": "Philip Wheelwright",
@@ -885,7 +885,7 @@
   },
   {
     "pk": 53,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Perennial Philosophy",
       "author": "Aldous Huxley",
@@ -902,7 +902,7 @@
   },
   {
     "pk": 54,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Doors of Perception and Heaven and Hell",
       "author": "Aldous Huxley",
@@ -919,7 +919,7 @@
   },
   {
     "pk": 55,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Plato, Not Prozac!",
       "author": "Lou Marinoff",
@@ -936,7 +936,7 @@
   },
   {
     "pk": 56,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Wittgenstein's Poker",
       "author": "David Edmonds;John Eidinow",
@@ -953,7 +953,7 @@
   },
   {
     "pk": 57,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Making of a Philosopher",
       "author": "Colin McGinn",
@@ -970,7 +970,7 @@
   },
   {
     "pk": 58,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Blue and Brown Books",
       "author": "Ludwig Wittgenstein",
@@ -987,7 +987,7 @@
   },
   {
     "pk": 59,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Act of Creation",
       "author": "Arthur Koestler",
@@ -1004,7 +1004,7 @@
   },
   {
     "pk": 60,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Ghost in the Machine",
       "author": "Arthur Koestler",
@@ -1021,7 +1021,7 @@
   },
   {
     "pk": 61,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Meeting Jesus Again for the First Time",
       "author": "Marcus J. Borg",
@@ -1038,7 +1038,7 @@
   },
   {
     "pk": 62,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Reading the Bible Again for the First Time",
       "author": "Marcus J. Borg",
@@ -1055,7 +1055,7 @@
   },
   {
     "pk": 63,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Shadow of the Almighty",
       "author": "Elisabeth Elliot",
@@ -1072,7 +1072,7 @@
   },
   {
     "pk": 64,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Dance of the Dissident Daughter",
       "author": "Sue Monk Kidd",
@@ -1089,7 +1089,7 @@
   },
   {
     "pk": 65,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "C.S. Lewis",
       "author": "C. S. Lewis",
@@ -1106,7 +1106,7 @@
   },
   {
     "pk": 66,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Screwtape Letters",
       "author": "C. S. Lewis",
@@ -1123,7 +1123,7 @@
   },
   {
     "pk": 67,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Mere Christianity",
       "author": "C. S. Lewis",
@@ -1140,7 +1140,7 @@
   },
   {
     "pk": 68,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Learning to Love",
       "author": "Thomas Merton",
@@ -1157,7 +1157,7 @@
   },
   {
     "pk": 69,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "What Christians Believe",
       "author": "C. S. Lewis",
@@ -1174,7 +1174,7 @@
   },
   {
     "pk": 70,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Think on These Things",
       "author": "Jiddu Krishnamurti",
@@ -1191,7 +1191,7 @@
   },
   {
     "pk": 71,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "How to Make Money Like a Porn Star",
       "author": "Neil Strauss;Bernard Chang",
@@ -1208,7 +1208,7 @@
   },
   {
     "pk": 72,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Inferno",
       "author": "Alex Irvine;Bob Kane",
@@ -1225,7 +1225,7 @@
   },
   {
     "pk": 73,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Will Eisner's New York",
       "author": "Will Eisner",
@@ -1242,7 +1242,7 @@
   },
   {
     "pk": 74,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Essential Calvin And Hobbes",
       "author": "Bill Watterson",
@@ -1259,7 +1259,7 @@
   },
   {
     "pk": 75,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Black Hole",
       "author": "Charles Burns",
@@ -1276,7 +1276,7 @@
   },
   {
     "pk": 76,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Good-bye, Chunky Rice",
       "author": "Craig Thompson",
@@ -1293,7 +1293,7 @@
   },
   {
     "pk": 77,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Rent Girl",
       "author": "Michelle Tea",
@@ -1310,7 +1310,7 @@
   },
   {
     "pk": 78,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Punisher",
       "author": "Garth Ennis;Jeff Youngquist;John McCrea",
@@ -1327,7 +1327,7 @@
   },
   {
     "pk": 79,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Homecoming",
       "author": "Richard K. Morgan;Bill Sienkiewicz;Goran Parlov",
@@ -1344,7 +1344,7 @@
   },
   {
     "pk": 80,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Astonishing X-Men - Volume 1",
       "author": "Joss Whedon",
@@ -1361,7 +1361,7 @@
   },
   {
     "pk": 81,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Sammlung",
       "author": "William Shakespeare",
@@ -1378,7 +1378,7 @@
   },
   {
     "pk": 82,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Saint Joan",
       "author": "George Bernard Shaw",
@@ -1395,7 +1395,7 @@
   },
   {
     "pk": 83,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Faust",
       "author": "Johann Goethe",
@@ -1412,7 +1412,7 @@
   },
   {
     "pk": 84,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Prometheus Bound and Other Plays",
       "author": "Aeschylus;Philip Vellacott",
@@ -1429,7 +1429,7 @@
   },
   {
     "pk": 85,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Iphigenia, Phaedra, Athaliah",
       "author": "Jean Racine",
@@ -1446,7 +1446,7 @@
   },
   {
     "pk": 86,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Wasps",
       "author": "Aristophanes",
@@ -1463,7 +1463,7 @@
   },
   {
     "pk": 87,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Oresteia",
       "author": "Aeschylus",
@@ -1480,7 +1480,7 @@
   },
   {
     "pk": 88,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Bacchae and Other Plays",
       "author": "Euripides;John N. Davie;R. B. Rutherford",
@@ -1497,7 +1497,7 @@
   },
   {
     "pk": 89,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Lysistrata and Other Plays",
       "author": "Aristophanes;Alan H. Sommerstein",
@@ -1514,7 +1514,7 @@
   },
   {
     "pk": 90,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Birds and Other Plays",
       "author": "Aristophanes;David Barrett;Alan H. Sommerstein",
@@ -1531,7 +1531,7 @@
   },
   {
     "pk": 91,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Secret Garden Cookbook",
       "author": "Amy Cotler",
@@ -1548,7 +1548,7 @@
   },
   {
     "pk": 92,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Laura's Album",
       "author": "William Anderson",
@@ -1565,7 +1565,7 @@
   },
   {
     "pk": 93,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The BFG",
       "author": "Roald Dahl;David Wood;Jane Walmsley",
@@ -1582,7 +1582,7 @@
   },
   {
     "pk": 94,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Time For Kids: Butterflies!",
       "author": "Editors of TIME For Kids",
@@ -1599,7 +1599,7 @@
   },
   {
     "pk": 95,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Annotated Charlotte's Web",
       "author": "E. B. White",
@@ -1616,7 +1616,7 @@
   },
   {
     "pk": 96,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "My Little House Crafts Book",
       "author": "Carolyn Strom Collins",
@@ -1633,7 +1633,7 @@
   },
   {
     "pk": 97,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "Pioneer Girl",
       "author": "William Anderson",
@@ -1650,7 +1650,7 @@
   },
   {
     "pk": 98,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "A Light in the Attic Book and CD",
       "author": "Shel Silverstein",
@@ -1667,7 +1667,7 @@
   },
   {
     "pk": 99,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "The Tough Guide to Fantasyland",
       "author": "Diana Wynne Jones",
@@ -1684,7 +1684,7 @@
   },
   {
     "pk": 100,
-    "model": "books.Books",
+    "model": "books.books",
     "fields": {
       "title": "World Studies: Eastern Hemisphere",
       "author": "Heidi Hayes Jacobs;Pearson Prentice Hall;Kate Kinsella;Michal L. LeVasseur",
