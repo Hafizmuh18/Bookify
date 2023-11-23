@@ -13,7 +13,7 @@ class BookReviewTestCase(TestCase):
         self.book = Books.objects.create(title='Test Book', author='Test Author', genre='Test Genre',
                                          pages=200, published_year=2022, description='Test Description',
                                          thumbnail='test_thumbnail.jpg', ratings_avg=0, ratings_count=0,
-                                         isbn10='1234567890', isbn13=1234567890123)
+                                         isbn10='1234567890', isbn13='1234567890123')
         self.review = Review.objects.create(book=self.book, user=self.user2, rating=4, comment='Good book')
 
     def test_book_review_view(self):

@@ -11,7 +11,7 @@ from booklibrary.models import UserBook
 from django.contrib import messages
 from books.models import Books
 
-@login_required
+@login_required(login_url='/login')
 def show_bookmark(request):
     genre = request.GET.get('genre')
     user = request.user
