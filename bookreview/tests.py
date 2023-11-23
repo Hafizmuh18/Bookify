@@ -44,3 +44,4 @@ class BookReviewTestCase(TestCase):
         response = self.client.post(reverse('bookreview:delete_review', args=(self.review.pk,)), content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(str(response.content, encoding='utf-8'), {'status': 'success', 'code': 200, 'message': 'Review berhasil dihapus.'})
+
