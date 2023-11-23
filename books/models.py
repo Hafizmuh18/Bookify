@@ -13,3 +13,4 @@ class Books(models.Model):
     ratings_count = models.IntegerField(null=True, blank=True)
     isbn10 = models.TextField(null=True, blank=True)
     isbn13 = models.TextField(null=True, blank=True)
+    
